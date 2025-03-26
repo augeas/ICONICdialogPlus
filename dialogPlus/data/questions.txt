@@ -1,0 +1,13 @@
+1. How happy are you with your mental health?
+2. How happy are you with your physical health?
+3. How happy are you with your work?
+4. How happy are you with your learning?
+5. How happy are you with where you live?
+6. How happy are you with your day activities?
+7. How happy are you about your relationships with your family?
+8. How happy are you about your friendships?
+9. How happy are you about feeling safe in your home or outside?
+10. How happy are you about your independence?
+11. How happy are you with your medication?
+12. How happy are you with the support that you get from care workers?
+13. How happy are you about your meetings with your care team?

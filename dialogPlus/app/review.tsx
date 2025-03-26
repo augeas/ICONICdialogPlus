@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { useLocalSearchParams,} from "expo-router";
-import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
+import { FlatList, Link, StyleSheet, Text, Pressable, View } from 'react-native';
 
 import { Client, useClientStore } from "../data/client";
 import { Assessment, Domains, DomainKey, DomainTitles, pluralSession, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
@@ -98,6 +98,17 @@ const Review = () => {
           <DateScore domain={domain} session={compareSession} ts={reviewTs}></DateScore>
         </View>
       </View>
+      
+<Link
+       href = {{
+         pathname: '/discuss',
+         params: { id: id }
+       }}
+       style = {[styles.button, styles.buttonOpen, styles.buttonText]}
+    >Discuss
+    </Link>      
+      
+      
     </View>
   )    
 }

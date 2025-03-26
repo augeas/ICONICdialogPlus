@@ -46,7 +46,7 @@
       }
     },
     "experiments": {
-      "baseUrl": "/ICONICdialogPlus"
+      "baseUrl": "/"
     }  
   }
 }

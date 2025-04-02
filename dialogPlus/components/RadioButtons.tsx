@@ -15,10 +15,14 @@ type radioProps = {
 const RadioButton = ({value, id, selected, onClick, children}: radioProps) => {
   return (
     <Pressable
-      style={[radioStyles.radioButton, selected ? radioStyles.radioSelected: radioStyles.radioUnselected]}
       onPress={onClick}
     >
-      <Text style={selected ? radioStyles.radioTextSelected : radioStyles.radioTextUnselected}>{value}</Text>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={[radioStyles.radioButton, selected ? radioStyles.radioSelected: radioStyles.radioUnselected]}>
+          <Text style={selected ? radioStyles.radioTextSelected : radioStyles.radioTextUnselected}>{value}</Text>
+        </View>
+        {children}
+      </View>
     </Pressable>
   )
 }
@@ -43,13 +47,13 @@ export const RadioGroup = ({data, selectedId, onSelect=(i: number) => {}, row=tr
       renderItem={
         ({item}) =>
            <View style={radioStyles.radioGroup}>
-           <RadioButton
-             value={String(item.value)}
-             id={item.id} selected={selectedId===item.id}
-             onClick={() => onSelect(item.id)}
-           >
-           </RadioButton>
-          {item.label}
+             <RadioButton
+               value={String(item.value)}
+               id={item.id} selected={selectedId===item.id}
+               onClick={() => onSelect(item.id)}
+             >
+              {item.label}
+             </RadioButton>
            </View>
       }
       horizontal={row}

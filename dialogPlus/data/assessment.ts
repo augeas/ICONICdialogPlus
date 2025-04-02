@@ -137,7 +137,7 @@ export const useAssesmentsStore = create<assessmentsState>() (
         })
       )
     }),
-    {name: 'assessment-storage', storage: createJSONStorage(() => sessionStorage)}
+    {name: 'assessment-storage', storage: createJSONStorage(() => localStorage)}
   ),
 );
 

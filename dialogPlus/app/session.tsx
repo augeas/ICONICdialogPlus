@@ -24,9 +24,9 @@ const ResponseText = ({code}: responseProps) => {
 }
 
 const scaleButtons: RadioItem[] = [
-  {value: 'Happy', id: 3, label: <Smiley code={'emoticon'} size={60} colour='green' />,},
-  {value: 'Not Sure', id: 2, label: <Smiley code={'emoticon-neutral'} size={60} colour='yellow' />,},
-  {value: 'Unhappy', id: 1, label:  <Smiley code={'emoticon-frown'} size={60} colour='red' />,},
+  {value: 'Happy', id: 3, label: <Smiley code={'emoticon'} size={80} colour='green' />,},
+  {value: 'Not Sure', id: 2, label: <Smiley code={'emoticon-neutral'} size={80} colour='yellow' />,},
+  {value: 'Unhappy', id: 1, label:  <Smiley code={'emoticon-frown'} size={80} colour='red' />,},
 ];
 
 const moreHelpButtons: RadioItem[] = [

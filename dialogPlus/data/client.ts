@@ -35,6 +35,6 @@ export const useClientStore = create<ClientState>()(
         })
       )
     }),
-    { name: 'client-storage', storage: createJSONStorage(() => sessionStorage)}
+    { name: 'client-storage', storage: createJSONStorage(() => localStorage)}
   ),
 );

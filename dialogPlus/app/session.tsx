@@ -1,14 +1,16 @@
 
 import React, {useState} from 'react';
 import { useLocalSearchParams, router } from "expo-router";
-import { FlatList, SafeAreaView, StyleSheet, Text, Pressable, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, Pressable, View, Image } from 'react-native';
 import { decode } from 'html-entities';
 import Entypo from '@expo/vector-icons/Entypo';
+
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, useAssesmentsStore } from "../data/assessment";
 import { RadioItem, RadioGroup } from '../components/RadioButtons'
 import { FadingButton} from '../components/Fading'
 import DomainButtons from '../components/DomainButtons';
+import DomainImage from '../components/DomainImage'
 import DialogModal from '../components/DialogModal'
 import styles from '../components/Styles';
 import Smiley from '../components/Smiley';
@@ -110,7 +112,7 @@ const NewSession = () => {
           />
         </View>
       
-        <View style={{flex: 4}}>
+        <View style={{flex: 3}}>
           <View style={[styles.centeredView, {width: '100%', height: '100%'}]}>
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
@@ -147,6 +149,11 @@ const NewSession = () => {
 
                
           </View>
+          
+          <View style={{flex: 2}}>
+            <DomainImage domain={domain}/>
+          </View>
+          
 
       </View>        
         

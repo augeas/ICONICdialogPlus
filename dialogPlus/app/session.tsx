@@ -155,12 +155,9 @@ const NewSession = () => {
             <DomainImage domain={domain}/>
             <SessionPrompt domain={domain}/>
           </View>
-          
-
+        
       </View>        
         
-     
-      
     </SafeAreaView>
   ) 
 }

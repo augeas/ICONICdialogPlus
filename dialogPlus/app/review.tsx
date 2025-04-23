@@ -18,7 +18,7 @@ function Score({assess, domain}) {
     return (
       <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
         <Text style={reviewStyles.scoreText}>{Responses[score]}</Text>
-        <Smiley code={code} size={60} colour={colour} />
+        <Smiley code={code} size={80} colour={colour} />
       </View>
     );
   else

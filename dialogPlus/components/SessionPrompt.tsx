@@ -4,24 +4,27 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { QuestionPrompts, QuestionIncludes } from "../data/questionPrompts";
 
 export default function SessionPrompt({domain}) {
-  console.log(QuestionPrompts[domain]);
   return (
     <View>
       <FlatList
         data={QuestionPrompts[domain]}
         renderItem={
           (prompt) => {return(
-            <Text>{prompt.item}</Text>   
+            <Text
+              style={prompt.index ? promptStyles.promptItem : promptStyles.promptHeading }
+            >
+              {prompt.item}
+            </Text>   
           )}    
         }
         horizontal={false}
       />
-      <Text>It includes:</Text>
+      <Text style={promptStyles.promptHeading}>It includes:</Text>
       <FlatList
         data={QuestionIncludes[domain]}
         renderItem={
           (prompt) => {return(
-            <Text>{prompt.item}</Text>   
+            <Text style={promptStyles.promptItem}>{prompt.item}</Text>   
           )}    
         }
         horizontal={false}
@@ -29,3 +32,13 @@ export default function SessionPrompt({domain}) {
     </View>
   )
 }
+
+const promptStyles = StyleSheet.create({  
+  promptItem: {
+    padding: 3
+  },
+  promptHeading: {
+    fontWeight: "bold",
+    padding: 4
+  }
+});

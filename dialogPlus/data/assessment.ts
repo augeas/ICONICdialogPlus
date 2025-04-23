@@ -74,7 +74,7 @@ export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Practical]: 'with the support that you get from care workers',
   [Domains.Meetings]: 'about your meetings with your care team'
 };
-  
+
 export const Responses: Record<number, string> = {
   1: 'Unhappy',
   2: 'Not Sure',

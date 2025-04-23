@@ -12,6 +12,7 @@ import { FadingButton} from '../components/Fading'
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import DialogModal from '../components/DialogModal'
+import SessionPrompt from '../components/SessionPrompt'
 import styles from '../components/Styles';
 import Smiley from '../components/Smiley';
 
@@ -152,6 +153,7 @@ const NewSession = () => {
           
           <View style={{flex: 2}}>
             <DomainImage domain={domain}/>
+            <SessionPrompt domain={domain}/>
           </View>
           
 

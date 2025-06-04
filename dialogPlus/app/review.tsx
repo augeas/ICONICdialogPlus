@@ -58,8 +58,6 @@ const Review = () => {
   const gotResponse = (i: number) => {
     const lastResp = lastSession.questions[i] ? true : false;
     const compResp = compareSession ? (compareSession.questions[i] ? true : false) : false;
-    console.log(lastResp);
-    console.log(compResp);
     return ! (lastResp || compResp);
   };
     

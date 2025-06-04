@@ -30,14 +30,18 @@ const ClientPage = () => {
         data={clientAssessments}
         horizontal={true}
         renderItem={
-         ({item}) => <SessionDate timeStamp={item}/>
+         ({item}) => <Link
+           href={{pathname: '/session', params: {id: id, ts: item}}}
+         > 
+           <SessionDate timeStamp={item}/>
+          </Link>
         }
       >
       </FlatList>
       
     <Link
        href = {{
-         pathname: '/session',
+         pathname: '/newsession',
          params: { id: id }
        }}
        style = {[styles.button, styles.buttonOpen, styles.buttonText]}

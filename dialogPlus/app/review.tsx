@@ -4,7 +4,7 @@ import { Link, useLocalSearchParams,} from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 import { Client, useClientStore } from "../data/client";
-import { Assessment, Domains, DomainKey, DomainTitles, pluralSession, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Assessment, Domains, DomainKey, DomainTitles, pluralSession, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import SessionDate from '../components/SessionDate';
 import DomainButtons from '../components/DomainButtons';
 import Smiley from '../components/Smiley';
@@ -25,9 +25,10 @@ function Score({assess, domain}) {
     return (<View></View>);
 }
 
-function DateScore({domain, session, ts}) {
+function DateScore({domain, session, ts, label}) {
   return (session ? (session.questions[domain] ?
-    <View style={{flexDirection: 'row', alignItems: 'space-between', justifyContent: 'center'}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+      <Text style={reviewStyles.scoreText}>{label}</Text>
       <SessionDate timeStamp={ts}/>
       <Score assess={session} domain={domain}></Score>
     </View>
@@ -60,10 +61,26 @@ const Review = () => {
     const compResp = compareSession ? (compareSession.questions[i] ? true : false) : false;
     return ! (lastResp || compResp);
   };
+
+  const anyMoreHelp = Object.values(lastSession.questions).map(
+      (q: Question) => q.moreHelp
+    ).some((h) => h);
     
   return (
     <View>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+     
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          <DomainButtons
+              domain={domain}
+              isChecked={isChecked}
+              disabled={gotResponse}
+              onClick={setDomain}
+          />
+        </View>
+        <View style={{flexDirection: 'column', flex: 4, justifyContent: 'space-between'}}>
+        
+              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
        {previousAssessments.length ?
          <FlatList
             data={previousAssessments}
@@ -79,27 +96,24 @@ const Review = () => {
          </FlatList>
         : <Text>(No previous sessions)</Text>
        } 
-      </View>      
-
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 1}}>
-          <DomainButtons
-              domain={domain}
-              isChecked={isChecked}
-              disabled={gotResponse}
-              onClick={setDomain}
-          />
-        </View>
-        <View style={{flexDirection: 'column', flex: 4, justifyContent: 'space-between'}}>
+      </View> 
+        
           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
-          <DateScore domain={domain} session={lastSession} ts={lastAssessment}></DateScore>
-          <DateScore domain={domain} session={compareSession} ts={reviewTs}></DateScore>
-          
-                      <Link
-       href = {{pathname: '/discuss',}}
-       style = {[styles.button, styles.buttonOpen, styles.buttonText]}
-    >Discuss
-    </Link>
+          <DateScore domain={domain} session={lastSession} ts={lastAssessment} label={'Just Now'}></DateScore>
+          <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
+
+          {anyMoreHelp ?
+            <Link
+              href = {{pathname: '/discuss', params: { id: id }}}
+              style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
+              Discuss
+            </Link>
+            : <Link
+              href = {{pathname: '/client', params: { id: id }}}
+              style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
+              Finish
+            </Link>
+          }
           
         </View>
       

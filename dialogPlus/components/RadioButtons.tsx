@@ -90,10 +90,12 @@ const radioStyles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 24,
   },
   radioTextUnselected: {
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 24,
   },
 });

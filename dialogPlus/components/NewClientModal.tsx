@@ -30,12 +30,13 @@ const NewClientModal = ({isVisible = false, dismiss = () => {}}: ModalProps) => 
     <DialogModal title="New Client" submitText="Add" isVisible={isVisible} dismiss={dismiss} submit={handleSubmit(onSubmit)}>
       <View>
         <View style={styles.fieldLabelView}>
-          <Text>Name</Text>
+          <Text style={styles.fieldLabelText}>Name</Text>
           <Controller
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
+                style={{flex: 1}}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
@@ -78,7 +79,10 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: "row",
     gap: 10,
-  }, 
+  },
+   fieldLabelText: {
+     fontSize: 22,
+  }
 })
 
 export default NewClientModal;

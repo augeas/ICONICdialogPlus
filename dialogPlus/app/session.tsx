@@ -67,6 +67,7 @@ const sessionStyles = StyleSheet.create({
   body: {
     flexDirection: 'column',
     alignItems: 'center',
+    'justifyContent': 'flex-start',
     rowGap: 20    
   },
   response: {

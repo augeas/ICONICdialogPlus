@@ -24,7 +24,7 @@ const DomainButtons = ({domain, isChecked, disabled, onClick}) => {
                 />
               </View>
               <View style={domainStyles.domainCheck}>
-                {checked && <Entypo name="check" size={24} color="black" />}
+                {checked && <Entypo name="check" size={24} color='lime' />}
               </View>
             </View>
           )
@@ -41,12 +41,12 @@ const domainStyles = StyleSheet.create({
       alignItems: 'left'
   },
   domainButton: {
-    width: '85%',
+    width: '90%',
     alignItems: 'left',
     padding: 3,
   },
   domainCheck: {
-    width: '15%',
+    width: '10%',
     alignItems: 'left',
     justifyContent: 'center',
     padding: 3,

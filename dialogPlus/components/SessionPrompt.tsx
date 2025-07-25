@@ -35,9 +35,11 @@ export default function SessionPrompt({domain}) {
 
 const promptStyles = StyleSheet.create({  
   promptItem: {
+    fontSize: 18,
     padding: 3
   },
   promptHeading: {
+    fontSize: 24,
     fontWeight: "bold",
     padding: 4
   }

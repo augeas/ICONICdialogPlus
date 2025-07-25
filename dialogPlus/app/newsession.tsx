@@ -6,7 +6,7 @@ import { decode } from 'html-entities';
 import Entypo from '@expo/vector-icons/Entypo';
 
 
-import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, useAssesmentsStore } from "../data/assessment";
+import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { RadioItem, RadioGroup } from '../components/RadioButtons'
 import { FadingButton} from '../components/Fading'
 import DomainButtons from '../components/DomainButtons';
@@ -26,11 +26,11 @@ const ResponseText = ({code}: responseProps) => {
    )
 }
 
-const scaleButtons: RadioItem[] = [
-  {value: 'Happy', id: 3, label: <Smiley code={'emoticon'} size={80} colour='green' />,},
-  {value: 'Not Sure', id: 2, label: <Smiley code={'emoticon-neutral'} size={80} colour='yellow' />,},
-  {value: 'Unhappy', id: 1, label:  <Smiley code={'emoticon-frown'} size={80} colour='red' />,},
-];
+const scaleButtons: RadioItem[] = Object.entries(Responses).map(
+  ([key, val]) => {
+      return {value: val, id: key, label: <Smiley code={SmileyScaleIcon[key]} size={80} colour={SmileyScaleColour[key]} />, }
+  }
+);
 
 const moreHelpButtons: RadioItem[] = [
   {value: 'Yes', id: 1},
@@ -63,6 +63,8 @@ const NewSession = () => {
   }
   
   const cantMove: boolean = getScaleValue(domain) != null & getHelpValue(domain) === null;
+
+  const answered: boolean = getScaleValue(domain) != null;
   
   const scaleClick = (i: number) => {
     setThisAssessment({...thisAssessment, [domain]: {score: i, moreHelp: getHelpValue(domain)}});
@@ -97,7 +99,9 @@ const NewSession = () => {
     <SafeAreaView>
       <DialogModal
         title={submitPrompt}
-        submitText="Review" isVisible={modalVisible}
+        submitText="Review"
+        cancelText="Go Back"
+        isVisible={modalVisible}
         dismiss={() => {setModalVisible(false)}}
         submit={submitAssessment}
       >
@@ -114,7 +118,7 @@ const NewSession = () => {
         </View>
       
         <View style={{flex: 3}}>
-          <View style={[styles.centeredView, {width: '100%', height: '100%'}]}>
+          <View style={[styles.centeredView, {width: '100%', height: '100%' }]}>
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
             <RadioGroup
@@ -124,14 +128,18 @@ const NewSession = () => {
               row={false}
             />
 
-            <Text style={{fontSize: 20}}>Do you need more help with this?{cantMove ? ' (Choose to move on.)' : null}</Text>
+            {
+              answered ? <View  style={styles.centeredView}>
+                <Text style={styles.heading}>Do you need more help with this?{cantMove ? ' (Choose to move on.)' : null}</Text>
         
-            <RadioGroup
-              data={moreHelpButtons}
-              onSelect={helpClick}
-              selectedId={helpButtonValue(domain)}
-            />
-            
+                <RadioGroup
+                  data={moreHelpButtons}
+                  onSelect={helpClick}
+                  selectedId={helpButtonValue(domain)}
+                />
+            </View> : null
+          }
+          
             <View style={styles.centeredView}>
               <FadingButton 
                 value={'Review'}
@@ -148,7 +156,6 @@ const NewSession = () => {
             
            </View>
 
-               
           </View>
           
           <View style={{flex: 2}}>
@@ -161,19 +168,5 @@ const NewSession = () => {
     </SafeAreaView>
   ) 
 }
-
-const sessionStyles = StyleSheet.create({  
-  domainButton: {
-    width: '85%',
-    alignItems: 'left',
-    padding: 3,
-  },
-  domainCheck: {
-    width: '15%',
-    alignItems: 'left',
-    'justifyContent': 'center',
-    padding: 3,
-  },
-});
 
 export default NewSession;

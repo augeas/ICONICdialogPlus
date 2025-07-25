@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams , Stack } from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 import { Client, useClientStore } from "../data/client";
@@ -22,6 +22,7 @@ const ClientPage = () => {
     
   return (
     <View style={styles.centeredView}>
+     <Stack.Screen options={{ title: 'service user' }} />
       <Text style={styles.heading}>
         {pluralSessions(clientAssessments.length) + clientName}
       </Text>

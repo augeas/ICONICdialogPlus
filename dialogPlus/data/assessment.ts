@@ -98,7 +98,7 @@ export const SmileyScaleColour: Record<number, string> =
 {
   1: 'red',
   2: 'yellow',
-  3: 'green'
+  3: 'lime'
 }
 
 
@@ -113,6 +113,17 @@ export const GlyphScale: Record<number, number> = {
 type Question = {
  score: number;
  moreHelp?: boolean;
+ actionItems?: String[];
+}
+
+export const pluralItems = (q: Question, k: DomainKey) => {
+  const nItems = q.actionItems ? len(q.actionItems) : 0;
+  const title = DomainTitles[k];
+  switch(nItems) {
+    case 0: return 'No action items for ' + title;
+    case 1: return '1 action item for ' + title;
+    default: return nItems + ' action items for ' + title;
+  }
 }
 
 type Assessment = {

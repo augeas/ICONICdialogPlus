@@ -4,11 +4,13 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   centeredView: {
     alignItems: 'center',
+    justifyContent: 'flex-start',
     marginTop: 24,
     marginBottom: 24,
   },
   heading: {
-    fontSize: 24,
+    fontSize: 28,
+    fontWeight: 'bold',
   },
   buttonGroup: {
     flex: 1,
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   buttonText: {
+    fontSize: 22,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

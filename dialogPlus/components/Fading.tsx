@@ -39,11 +39,13 @@ const fadingStyles = StyleSheet.create({
   fadedText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 22,
   },
   unfadedText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 22,
   },
 });
 

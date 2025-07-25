@@ -32,7 +32,7 @@ const App = () => {
       </Link>
       <Pressable onPress={() => {setDeletingClientID(item.id)}}>
         <View style={[styles.button, clientStyles.deleteButton]}>
-          <MaterialCommunityIcons name={'trash-can-outline'} size={14} color={'black'} />
+          <MaterialCommunityIcons name={'trash-can-outline'} size={24} color={'black'} />
         </View>
       </Pressable>
     </View>
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <View style={styles.centeredView}>
       <View>
-        <Text style={styles.heading}>{clients.length ? 'Clients' : '(No clients)'}</Text>
+        <Text style={styles.heading}>{clients.length ? 'Service Users' : '(No Service Users)'}</Text>
         <FlatList
           style={{alignSelf: 'flex-start'}}
           data={clients}
@@ -53,7 +53,7 @@ const App = () => {
           style={[styles.button, styles.buttonOpen]}
           onPress={() => {setClientModalVisible(true)}}
         >
-          <Text style={styles.buttonText}>New Client</Text>
+          <Text style={styles.buttonText}>New Service User</Text>
         </Pressable>        
       </View>
           
@@ -81,6 +81,7 @@ const clientStyles = StyleSheet.create({
   },
   clientText: {
     flex: 1,
+    fontSize: 24,
     color: 'black',
     fontWeight: 'bold',
     backgroundColor: 'lightblue',

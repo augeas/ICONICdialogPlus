@@ -9,7 +9,7 @@ type ModalProps = {
   children: React.ReactNode;
 }
 
-const DialogModal = ({title = '', submitText = 'submit', isVisible = false, dismiss = () => {}, submit = () => {}, children}: ModalProps) => {
+const DialogModal = ({title = '', submitText = 'submit', cancelText = 'cancel' ,isVisible = false, dismiss = () => {}, submit = () => {}, children}: ModalProps) => {
 
   return (
     <Modal
@@ -29,7 +29,7 @@ const DialogModal = ({title = '', submitText = 'submit', isVisible = false, dism
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={dismiss}>
-                <Text style={styles.textStyle}>Cancel</Text>
+                <Text style={styles.textStyle}>{cancelText}</Text>
               </Pressable>
             </View>
           </View>
@@ -80,11 +80,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
   },
   textStyle: {
+    fontSize: 22,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   modalText: {
+    fontSize: 24,
     marginBottom: 15,
     textAlign: 'center',
   },

@@ -32,7 +32,7 @@ const ActionItemModal = ({isVisible = false, dismiss = () => {}}: ModalProps) =>
             control={control}
             rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInpu
+              <TextInput
                 style={{flex: 1}}
                 onBlur={onBlur}
                 onChangeText={onChange}

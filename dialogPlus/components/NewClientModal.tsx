@@ -59,7 +59,6 @@ const DeleteClientModal = ({isVisible = false, dismiss = () => {}, clientId}: De
   const dropClient = useClientStore((state) => state.dropClient);
   const name = clientId ? clients.find((client) => client.id == clientId).name : null
   
-  console.log(clients.filter((client) => client.id == clientId))
   return (
     <DialogModal
       title="Delete Client"
@@ -67,7 +66,7 @@ const DeleteClientModal = ({isVisible = false, dismiss = () => {}, clientId}: De
       isVisible={isVisible} dismiss={dismiss}
       submit={()=>{dropClient(clientId); dismiss();}}
     >
-      <Text>Are you sure you want to delete {name}?</Text>
+      <Text style={{fontSize: 20}}>Are you sure you want to delete {name}?</Text>
     </DialogModal>
   )
 }

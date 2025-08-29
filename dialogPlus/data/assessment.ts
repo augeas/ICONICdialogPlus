@@ -134,6 +134,7 @@ type Assessment = {
 interface assessmentsState {
   assessments: Record<string, Assessment[]>
   addAssessment: (clientId: string, assess: Assessment) => void;
+  dropAssessment: (clientId: string, assessmentId: string) => void;
 }
 
 export const useAssesmentsStore = create<assessmentsState>() (
@@ -144,6 +145,15 @@ export const useAssesmentsStore = create<assessmentsState>() (
         set((state) => ({
           assessments: {
             ...state.assessments, [clientId]: [...(state.assessments[clientId] ? state.assessments[clientId] : []), assess]
+          }
+        })
+      ),
+      dropAssessment: (clientId: string, assessmentId: string) =>
+        set((state) => ({
+          assessments: {
+            ...state.assessments, [clientId]: state.assessments[clientId].filter(
+              (assess: Assessment) => assess.timeStamp != assessmentId
+            )
           }
         })
       )

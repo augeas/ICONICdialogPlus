@@ -135,6 +135,7 @@ interface assessmentsState {
   assessments: Record<string, Assessment[]>
   addAssessment: (clientId: string, assess: Assessment) => void;
   dropAssessment: (clientId: string, assessmentId: string) => void;
+  updateAssessment: (clientId: string, assess: Assessment) => void;
 }
 
 export const useAssesmentsStore = create<assessmentsState>() (
@@ -156,9 +157,24 @@ export const useAssesmentsStore = create<assessmentsState>() (
             )
           }
         })
-      )
+      ),
+      updateAssessment: (clientId: string, assess: Assessment) =>
+        set((state) => ({
+          assessments: {
+            ...state.assessments, [clientId]: state.assessments[clientId].map(
+                (a: Assessment) => a.timeStamp == assess.timeStamp ? assess : a
+            )
+          }
+        })
+      ),
+      _hasHydrated: false,
+      setHasHydrated: (state) => {set({_hasHydrated: state});}
     }),
-    {name: 'assessment-storage', storage: createJSONStorage(() => localStorage)}
+    {
+      name: 'assessment-storage',
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: (state) => {return () => state.setHasHydrated(true)}
+    }
   ),
 );
 

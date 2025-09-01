@@ -10,13 +10,12 @@ import ActionItemModal from '../components/ActionItemModal';
 import styles from '../components/Styles';
 
 function Discuss() {
-    const { id } = useLocalSearchParams<{ id: string }>();
-    const assessments = useAssesmentsStore((state) => state.assessments); 
-    
-    
-    const clientAssessments = assessments[id] ? assessments[id] : [];
-    const lastAssessment = clientAssessments.slice(-1)[0];
-
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { ts } = useLocalSearchParams<{ ts: string }>();
+  const thisTs = ts ? new Date(parseInt(ts)) : null;
+  const assessments = useAssesmentsStore((state) => state.assessments); 
+  const clientAssessments = assessments[id] ? assessments[id] : [];
+  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
   const firstMoreHelp = Object.keys(lastAssessment.questions).find(
     (i: number) => lastAssessment.questions[i].moreHelp
   );

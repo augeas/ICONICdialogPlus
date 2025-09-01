@@ -13,19 +13,23 @@ import styles from '../components/Styles';
 const ClientPage = () => {
   const [deletingSessionID, setDeletingSessionID] = useState(null);
   const clients = useClientStore((state) => state.clients);
+  const clientsHydrated = useClientStore(state => state._hasHydrated);
   const { id } = useLocalSearchParams<{ id: string }>();
-  const clientName = clients.find((client) => client.id == id).name;
+  const clientName = clientsHydrated ? clients.find((client) => client.id == id).name : null;
   const assessments = useAssesmentsStore((state) => state.assessments);
+  const assessmentsHydrated = useAssesmentsStore(state => state._hasHydrated);
   
   clientAssessments = assessments[id] ? assessments[id].map(
     (a: Assessment)=>a.timeStamp
   ) : [];
-  
+    
   return (
     <View style={styles.centeredView}>
      <Stack.Screen options={{ title: 'service user' }} />
       <Text style={styles.heading}>
-        {pluralSessions(clientAssessments.length) + clientName}
+        {(clientsHydrated & assessmentsHydrated) ? 
+          pluralSessions(clientAssessments.length) + clientName : '(Waiting for sessions...)'
+        }
       </Text>
       
       <FlatList
@@ -35,7 +39,7 @@ const ClientPage = () => {
         renderItem={
          ({item}) => <View style={sessionListStyles.sessionItem}>
           <Link
-            href={{pathname: '/session', params: {id: id, ts: item}}}
+            href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
           > 
             <SessionDate timeStamp={item}/>
           </Link>

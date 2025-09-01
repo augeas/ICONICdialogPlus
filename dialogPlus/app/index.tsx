@@ -13,6 +13,7 @@ const App = () => {
   const [newClientModalVisible, setClientModalVisible] = useState(false);
   const [deletingClientID, setDeletingClientID] = useState(null);
   const clients = useClientStore((state) => state.clients);
+  const clientsHydrated = useClientStore(state => state._hasHydrated);
   
   const dismissModal = () => setClientModalVisible(false);
 
@@ -42,7 +43,12 @@ const App = () => {
   return (
     <View style={styles.centeredView}>
       <View>
-        <Text style={styles.heading}>{clients.length ? 'Service Users' : '(No Service Users)'}</Text>
+        <Text style={styles.heading}>
+        {
+            clientsHydrated ? (clients.length ? 'Service Users' : '(No Service Users)')
+            : '(Waiting for Service Users...)'
+        }
+        </Text>
         <FlatList
           style={{alignSelf: 'flex-start'}}
           data={clients}

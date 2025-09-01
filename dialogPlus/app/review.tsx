@@ -41,28 +41,25 @@ const Review = () => {
   const [reviewTs, setReviewTs] = useState('');
   const clients = useClientStore((state) => state.clients);
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { ts } = useLocalSearchParams<{ ts: string }>();
+  const thisTs = ts ? new Date(parseInt(ts)) : null;
   const clientName = clients.find((client) => client.id == id).name;
-  const assessments = useAssesmentsStore((state) => state.assessments); 
-
-  const isChecked = (i: number) => {return false;};
-  
-  clientAssessments = assessments[id] ? assessments[id].map(
+  const assessments = useAssesmentsStore((state) => state.assessments);
+  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
+  const previousAssessments = assessments[id].map(
     (a: Assessment) => a.timeStamp
-  ) : [];
-
-  const lastAssessment = clientAssessments.slice(-1)[0];
-  const previousAssessments = clientAssessments.slice(0, -1);
-  
-  const lastSession = assessments[id].find((a: Assessment) => a.timeStamp == lastAssessment);
+  ).filter((ts) => ts != thisTs.toISOString());
+  const isChecked = (i: number) => {return false;};
+    
   const compareSession = reviewTs ? assessments[id].find((a: Assessment) => a.timeStamp == reviewTs) : null;
 
   const gotResponse = (i: number) => {
-    const lastResp = lastSession.questions[i] ? true : false;
+    const lastResp = lastAssessment.questions[i] ? true : false
     const compResp = compareSession ? (compareSession.questions[i] ? true : false) : false;
     return ! (lastResp || compResp);
   };
 
-  const anyMoreHelp = Object.values(lastSession.questions).map(
+  const anyMoreHelp = Object.values(lastAssessment.questions).map(
       (q: Question) => q.moreHelp
     ).some((h) => h);
     
@@ -99,12 +96,12 @@ const Review = () => {
       </View> 
         
           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
-          <DateScore domain={domain} session={lastSession} ts={lastAssessment} label={'Just Now'}></DateScore>
+          <DateScore domain={domain} session={lastAssessment} ts={lastAssessment.timeStamp} label={'Just Now'}></DateScore>
           <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
 
           {anyMoreHelp ?
             <Link
-              href = {{pathname: '/discuss', params: { id: id }}}
+              href = {{pathname: '/discuss', params: { id: id, ts: ts }}}
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
               Discuss
             </Link>
@@ -117,7 +114,6 @@ const Review = () => {
           
         </View>
       
-        
       </View>
     
     </View>

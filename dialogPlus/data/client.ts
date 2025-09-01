@@ -33,8 +33,18 @@ export const useClientStore = create<ClientState>()(
         set((state) => ({
           clients: state.clients.filter((client) => client.id !== id)
         })
-      )
+      ),
+      _hasHydrated: false,
+            setHasHydrated: (state) => {
+        set({
+          _hasHydrated: state
+        });
+      }
     }),
-    { name: 'client-storage', storage: createJSONStorage(() => localStorage)}
+    {
+      name: 'client-storage', 
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: (state) => {return () => state.setHasHydrated(true)}
+    }
   ),
 );

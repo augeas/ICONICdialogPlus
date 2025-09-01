@@ -14,8 +14,9 @@ import Smiley from '../components/Smiley';
 const Session = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ts } = useLocalSearchParams<{ ts: string }>();
+  const thisTs = ts ? new Date(parseInt(ts)) : null;
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const thisAssessment = assessments[id].find((a: Assessment) => a.timeStamp == ts);
+  const thisAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
   
   const getScaleValue = (i: DomainKey) => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].score : null);
@@ -42,7 +43,7 @@ const Session = () => {
       
         <View style={{flex: 3}}>
           <View style={sessionStyles.body}>
-            <SessionDate timeStamp={ts}/>
+            <SessionDate timeStamp={thisTs}/>
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
             <View style={sessionStyles.response}>
               <Text style={{fontSize: 30}}>{Responses[score]}</Text>

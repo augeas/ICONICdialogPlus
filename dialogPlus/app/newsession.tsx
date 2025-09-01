@@ -42,16 +42,21 @@ const submitPrompt = "You haven't answered all the questions.\nDo you really wan
 const NewSession = () => {
   const [domain, setDomain] = useState(Domains.Mental);
   const { id } = useLocalSearchParams<{ id: string }>();
-  const [thisAssessment, setThisAssessment] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
+  const { ts } = useLocalSearchParams<{ ts: string }>();
+  const assessments = useAssesmentsStore((state) => state.assessments);
+  const thisTs = ts ? new Date(parseInt(ts)) : null;
+  const thisAssessment = ts ? assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString()) : {};
+  const [theseQuestions, setTheseQuestions] = useState(ts ? thisAssessment.questions : {});
   const addAssessment = useAssesmentsStore((state) => state.addAssessment);
+  const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
+  const [modalVisible, setModalVisible] = useState(false);
   
   const getScaleValue = (i: DomainKey) => {
-    return (thisAssessment[i] ? thisAssessment[i].score : null);
+    return (theseQuestions[i] ? theseQuestions[i].score : null);
   };  
   
   const getHelpValue = (i: DomainKey) => {
-    return (thisAssessment[i] ? thisAssessment[i].moreHelp : null);
+    return (theseQuestions[i] ? theseQuestions[i].moreHelp : null);
   };
   
   const completedDomains = () => {
@@ -67,11 +72,11 @@ const NewSession = () => {
   const answered: boolean = getScaleValue(domain) != null;
   
   const scaleClick = (i: number) => {
-    setThisAssessment({...thisAssessment, [domain]: {score: i, moreHelp: getHelpValue(domain)}});
+    setTheseQuestions({...theseQuestions, [domain]: {score: i, moreHelp: getHelpValue(domain)}});
   }
 
   const helpClick = (i: number) => {
-    setThisAssessment({...thisAssessment, [domain]: {score: getScaleValue(domain), moreHelp: i === 1}});
+    setTheseQuestions({...theseQuestions, [domain]: {score: getScaleValue(domain), moreHelp: i === 1}});
   }  
   
   const helpButtonValue = () => {
@@ -81,12 +86,21 @@ const NewSession = () => {
 
   const submitAssessment = () => {
     setModalVisible(false);
-    addAssessment(id, {
-      timeStamp: new Date(),
-      questions: thisAssessment
-    });
+    const newTs = new Date();
+    if (ts === undefined) {
+        addAssessment(id, {
+          timeStamp: newTs,
+          questions: theseQuestions,
+        });
+    }
+     else 
+      updateAssessment(id, {
+        timeStamp: thisAssessment.timeStamp,
+        questions: theseQuestions}
+      );
+    
     router.navigate({
-      pathname: './review', params: { id: id }
+      pathname: './review', params: { id: id, ts: ts != undefined ? ts : newTs.getTime() }
     });
   }  
 
@@ -108,7 +122,7 @@ const NewSession = () => {
       </DialogModal>   
     
       <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 2}}>
           <DomainButtons
             domain={domain}
             isChecked={isChecked}

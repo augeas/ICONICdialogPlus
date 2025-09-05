@@ -27,7 +27,7 @@ const ClientPage = () => {
     <View style={styles.centeredView}>
      <Stack.Screen options={{ title: 'service user' }} />
       <Text style={styles.heading}>
-        {(clientsHydrated & assessmentsHydrated) ? 
+        {(clientsHydrated && assessmentsHydrated) ? 
           pluralSessions(clientAssessments.length) + clientName : '(Waiting for sessions...)'
         }
       </Text>

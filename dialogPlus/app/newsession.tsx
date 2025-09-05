@@ -1,10 +1,9 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useLocalSearchParams, router } from "expo-router";
-import { FlatList, SafeAreaView, StyleSheet, Text, Pressable, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, Pressable, View, Image } from 'react-native';
 import { decode } from 'html-entities';
 import Entypo from '@expo/vector-icons/Entypo';
-
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { RadioItem, RadioGroup } from '../components/RadioButtons'
@@ -40,16 +39,29 @@ const moreHelpButtons: RadioItem[] = [
 const submitPrompt = "You haven't answered all the questions.\nDo you really want to finish this session and review it?";
 
 const NewSession = () => {
-  const [domain, setDomain] = useState(Domains.Mental);
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ts } = useLocalSearchParams<{ ts: string }>();
+  const [domain, setDomain] = useState(Domains.Mental);
+  const [thisTs, setThisTs] = useState(ts ? new Date(parseInt(ts)) : new Date());
+  const [hasSubmitted, setSubmitted] = useState(false);
+
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const thisTs = ts ? new Date(parseInt(ts)) : null;
-  const thisAssessment = ts ? assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString()) : {};
-  const [theseQuestions, setTheseQuestions] = useState(ts ? thisAssessment.questions : {});
   const addAssessment = useAssesmentsStore((state) => state.addAssessment);
   const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
+  const thisAssessment = ts ? assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString()) : {};
+  console.log('pong');
+  console.log(thisTs.toISOString());
+  const [theseQuestions, setTheseQuestions] = useState(ts ? thisAssessment.questions : {});
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    console.log('ping...')
+    console.log(thisTs);
+    console.log(assessments[id]);
+    if (hasSubmitted && assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString())) {
+      router.navigate({pathname: './review', params: { id: id, ts: ts != undefined ? ts : thisTs.getTime() }});
+    }
+  }, [hasSubmitted, assessments]);
   
   const getScaleValue = (i: DomainKey) => {
     return (theseQuestions[i] ? theseQuestions[i].score : null);
@@ -80,28 +92,26 @@ const NewSession = () => {
   }  
   
   const helpButtonValue = () => {
-    help = getHelpValue(domain)
+    const help = getHelpValue(domain);
     return (help === null ? null : help ? 1 : 2)
   }
 
   const submitAssessment = () => {
     setModalVisible(false);
-    const newTs = new Date();
+
     if (ts === undefined) {
         addAssessment(id, {
-          timeStamp: newTs,
+          timeStamp: thisTs.toISOString(),
           questions: theseQuestions,
         });
     }
-     else 
+    else 
       updateAssessment(id, {
         timeStamp: thisAssessment.timeStamp,
         questions: theseQuestions}
-      );
-    
-    router.navigate({
-      pathname: './review', params: { id: id, ts: ts != undefined ? ts : newTs.getTime() }
-    });
+    );
+
+    setSubmitted(true);
   }  
 
   const isChecked = (i: number) => (thisAssessment[i] ? 

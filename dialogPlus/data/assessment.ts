@@ -1,6 +1,6 @@
 
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist, subscribeWithSelector, createJSONStorage } from 'zustand/middleware'
 
 export const pluralSessions = (nsessions: number) => {
   switch(nsessions) {
@@ -117,7 +117,7 @@ type Question = {
 }
 
 export const pluralItems = (q: Question, k: DomainKey) => {
-  const nItems = q.actionItems ? len(q.actionItems) : 0;
+  const nItems = q.actionItems ? q.actionItems.length: 0;
   const title = DomainTitles[k];
   switch(nItems) {
     case 0: return 'No action items for ' + title;

@@ -45,6 +45,7 @@ const Review = () => {
   const thisTs = ts ? new Date(parseInt(ts)) : null;
   const clientName = clients.find((client) => client.id == id).name;
   const assessments = useAssesmentsStore((state) => state.assessments);
+  const assessmentsHydrated = useAssesmentsStore(state => state._hasHydrated);
   const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
   const previousAssessments = assessments[id].map(
     (a: Assessment) => a.timeStamp
@@ -54,15 +55,15 @@ const Review = () => {
   const compareSession = reviewTs ? assessments[id].find((a: Assessment) => a.timeStamp == reviewTs) : null;
 
   const gotResponse = (i: number) => {
-    const lastResp = lastAssessment.questions[i] ? true : false
+    const lastResp = lastAssessment ? (lastAssessment.questions[i] ? true : false) : false;
     const compResp = compareSession ? (compareSession.questions[i] ? true : false) : false;
     return ! (lastResp || compResp);
   };
 
-  const anyMoreHelp = Object.values(lastAssessment.questions).map(
+  const anyMoreHelp = lastAssessment ? Object.values(lastAssessment.questions).map(
       (q: Question) => q.moreHelp
-    ).some((h) => h);
-    
+    ).some((h) => h) : false;
+
   return (
     <View>
      
@@ -96,7 +97,7 @@ const Review = () => {
       </View> 
         
           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
-          <DateScore domain={domain} session={lastAssessment} ts={lastAssessment.timeStamp} label={'Just Now'}></DateScore>
+          <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
           <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
 
           {anyMoreHelp ?

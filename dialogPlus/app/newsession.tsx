@@ -156,20 +156,6 @@ const NewSession = () => {
               row={false}
             />
           
-            <View style={styles.centeredView}>
-              <FadingButton 
-                value={'Review'}
-                faded={cantMove || completedDomains() == 0}
-                onClick={() => {
-                  if (completedDomains() < 11) {
-                    setModalVisible(true);
-                  } else {
-                    submitAssessment();
-                  }
-                }}
-              />
-            </View>             
-            
            </View>          
           
           </Tab>
@@ -195,6 +181,20 @@ const NewSession = () => {
             </View> : null
           }
 
+            <View style={styles.centeredView}>
+              <FadingButton 
+                value={'Review'}
+                faded={cantMove || completedDomains() == 0}
+                onClick={() => {
+                  if (completedDomains() < 11) {
+                    setModalVisible(true);
+                  } else {
+                    submitAssessment();
+                  }
+                }}
+              />
+            </View>             
+          
           </View>
                   
       </View>        

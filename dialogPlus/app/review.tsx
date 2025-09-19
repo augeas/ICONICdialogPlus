@@ -5,8 +5,11 @@ import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 import { Client, useClientStore } from "../data/client";
 import { Assessment, Domains, DomainKey, DomainTitles, pluralSession, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Tab, TabGroup } from '../components/Tabs';
 import SessionDate from '../components/SessionDate';
 import DomainButtons from '../components/DomainButtons';
+import DomainImage from '../components/DomainImage'
+import SessionPrompt from '../components/SessionPrompt'
 import Smiley from '../components/Smiley';
 import styles from '../components/Styles';
 
@@ -76,7 +79,11 @@ const Review = () => {
               onClick={setDomain}
           />
         </View>
+        
         <View style={{flexDirection: 'column', flex: 4, justifyContent: 'space-between'}}>
+        <TabGroup>
+        
+        <Tab label={'how you answered'}><View>
         
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
        {previousAssessments.length ?
@@ -113,7 +120,15 @@ const Review = () => {
             </Link>
           }
           
-        </View>
+        </View></Tab>
+        
+        <Tab label={'more about this'}>
+            <DomainImage domain={domain}/>
+            <SessionPrompt domain={domain}/>
+        </Tab>
+      
+      </TabGroup>
+      </View>
       
       </View>
     

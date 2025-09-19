@@ -7,7 +7,10 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import DomainButtons from '../components/DomainButtons';
 import { Client, useClientStore } from "../data/client";
 import { Assessment, Domains, DomainKey, DomainTitles, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Tab, TabGroup } from '../components/Tabs';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
+import DomainImage from '../components/DomainImage'
+import SessionPrompt from '../components/SessionPrompt'
 import styles from '../components/Styles';
 
 function Discuss() {
@@ -45,6 +48,10 @@ function Discuss() {
       </View>
       
       <View View style={{flex: 2, flexDirection: 'column'}}>
+      <TabGroup>
+      
+      <Tab label={'how you answered'}>
+      <View>
         <View style={styles.centeredView}>
         <Text style={discussStyles.itemCountText}>{pluralItems(lastAssessment.questions[domain], domain)}</Text>
         
@@ -107,6 +114,16 @@ function Discuss() {
             </Link>        
         
       </View>
+      </Tab>
+      
+        <Tab label={'more about this'}>
+            <DomainImage domain={domain}/>
+            <SessionPrompt domain={domain}/>
+        </Tab>
+      
+      </TabGroup>
+      </View>
+      
     </View>
       
   )

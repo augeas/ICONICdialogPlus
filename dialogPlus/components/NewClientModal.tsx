@@ -27,7 +27,7 @@ const NewClientModal = ({isVisible = false, dismiss = () => {}}: ModalProps) => 
   const onSubmit = (data) => { addClient(data.clientName); dismiss(); }
   
   return (
-    <DialogModal title="New Client" submitText="Add" isVisible={isVisible} dismiss={dismiss} submit={handleSubmit(onSubmit)}>
+    <DialogModal title="New Service User" submitText="Add" isVisible={isVisible} dismiss={dismiss} submit={handleSubmit(onSubmit)}>
       <View>
         <View style={styles.fieldLabelView}>
           <Text style={styles.fieldLabelText}>Name</Text>

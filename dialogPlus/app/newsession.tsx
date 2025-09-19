@@ -6,8 +6,9 @@ import { decode } from 'html-entities';
 import Entypo from '@expo/vector-icons/Entypo';
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
-import { RadioItem, RadioGroup } from '../components/RadioButtons'
-import { FadingButton} from '../components/Fading'
+import { Tab, TabGroup } from '../components/Tabs';
+import { RadioItem, RadioGroup } from '../components/RadioButtons';
+import { FadingButton} from '../components/Fading';
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import DialogModal from '../components/DialogModal'
@@ -142,6 +143,9 @@ const NewSession = () => {
         </View>
       
         <View style={{flex: 3}}>
+        
+        <TabGroup>
+          <Tab label={'answer this question'}>
           <View style={[styles.centeredView, {width: '100%', height: '100%' }]}>
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
@@ -151,18 +155,6 @@ const NewSession = () => {
               selectedId={getScaleValue(domain)}
               row={false}
             />
-
-            {
-              answered ? <View  style={styles.centeredView}>
-                <Text style={styles.heading}>Do you need more help with this?{cantMove ? ' (Choose to move on.)' : null}</Text>
-        
-                <RadioGroup
-                  data={moreHelpButtons}
-                  onSelect={helpClick}
-                  selectedId={helpButtonValue(domain)}
-                />
-            </View> : null
-          }
           
             <View style={styles.centeredView}>
               <FadingButton 
@@ -178,15 +170,33 @@ const NewSession = () => {
               />
             </View>             
             
-           </View>
+           </View>          
+          
+          </Tab>
+          
+          
+          <Tab label={'more about this'}>
+                <View style={{flex: 3}}>
+                  <DomainImage domain={domain}/>
+                <SessionPrompt domain={domain}/>
+              </View>
+          </Tab>
+        </TabGroup>
+        
+            {
+              answered ? <View  style={styles.centeredView}>
+                <Text style={styles.heading}>Do you need more help with this?{cantMove ? ' (Choose to move on.)' : null}</Text>
+        
+                <RadioGroup
+                  data={moreHelpButtons}
+                  onSelect={helpClick}
+                  selectedId={helpButtonValue(domain)}
+                />
+            </View> : null
+          }
 
           </View>
-          
-          <View style={{flex: 2}}>
-            <DomainImage domain={domain}/>
-            <SessionPrompt domain={domain}/>
-          </View>
-        
+                  
       </View>        
         
     </SafeAreaView>

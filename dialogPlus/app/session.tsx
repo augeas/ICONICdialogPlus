@@ -4,6 +4,7 @@ import { useLocalSearchParams, router } from "expo-router";
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Tab, TabGroup } from '../components/Tabs';
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import SessionDate from '../components/SessionDate';
@@ -41,21 +42,25 @@ const Session = () => {
           />
         </View>
       
-        <View style={{flex: 3}}>
-          <View style={sessionStyles.body}>
-            <SessionDate timeStamp={thisTs}/>
-            <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
-            <View style={sessionStyles.response}>
-              <Text style={{fontSize: 30}}>{Responses[score]}</Text>
-              <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+      <View style={{flex: 3}}>
+      <TabGroup>
+        <Tab label={'how you answered'}>
+            <View style={sessionStyles.body}>
+              <SessionDate timeStamp={thisTs}/>
+              <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
+              <View style={sessionStyles.response}>
+                <Text style={{fontSize: 30}}>{Responses[score]}</Text>
+                <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+              </View>
+              <Text style={{fontSize: 30}}>I {getHelpValue(domain) ? "need" : "don't need"} more help.</Text>
             </View>
-            <Text style={{fontSize: 30}}>I {getHelpValue(domain) ? "need" : "don't need"} more help.</Text>
-          </View>
-        </View>
-          
-        <View style={{flex: 2}}>
-          <DomainImage domain={domain}/>
-          <SessionPrompt domain={domain}/>
+          </Tab>
+          <Tab label={'more about this'}>
+              <DomainImage domain={domain}/>
+              <SessionPrompt domain={domain}/>
+
+          </Tab>
+        </TabGroup>
         </View>
         
       </View>        

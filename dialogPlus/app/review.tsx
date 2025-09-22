@@ -85,7 +85,7 @@ const Review = () => {
         
         <Tab label={'how you answered'}><View>
         
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center', padding: 10}}>
        {previousAssessments.length ?
          <FlatList
             data={previousAssessments}
@@ -107,7 +107,19 @@ const Review = () => {
           <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
           <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
 
-          {anyMoreHelp ?
+          
+          
+        </View></Tab>
+        
+        <Tab label={'more about this'}>
+            <DomainImage domain={domain}/>
+            <SessionPrompt domain={domain}/>
+        </Tab>
+      
+      </TabGroup>
+
+      <View style={styles.centeredView}>
+      {anyMoreHelp ?
             <Link
               href = {{pathname: '/discuss', params: { id: id, ts: ts }}}
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
@@ -118,16 +130,9 @@ const Review = () => {
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
               Finish
             </Link>
-          }
-          
-        </View></Tab>
-        
-        <Tab label={'more about this'}>
-            <DomainImage domain={domain}/>
-            <SessionPrompt domain={domain}/>
-        </Tab>
+          }      
+        </View>
       
-      </TabGroup>
       </View>
       
       </View>

@@ -46,8 +46,29 @@ function Discuss() {
           onClick={setDomain}
         />
       </View>
-      
+
       <View View style={{flex: 2, flexDirection: 'column'}}>
+
+         <ActionItemModal
+              isVisible={newItemModalVisible}
+              dismiss={() => setNewItemModalVisible(false)}
+              clientID={id}
+              assessmentID={assessID}
+              domain={domain}
+            >   
+            </ActionItemModal>
+
+          <DeleteItemModal
+              isVisible={deleteItemModalVisible}
+              dismiss={() => setDeleteItemModalVisible(false)}
+              clientID={id}
+              assessmentID={assessID}
+              domain={domain}
+              index={itemIndex}
+            >   
+            </DeleteItemModal>
+      
+      
       <TabGroup>
       
       <Tab label={'how you answered'}>
@@ -84,35 +105,11 @@ function Discuss() {
           <Text style={styles.buttonText}>New Action Item</Text>
         </Pressable>
 
-          <ActionItemModal
-              isVisible={newItemModalVisible}
-              dismiss={() => setNewItemModalVisible(false)}
-              clientID={id}
-              assessmentID={assessID}
-              domain={domain}
-            >   
-            </ActionItemModal>
-
-          <DeleteItemModal
-              isVisible={deleteItemModalVisible}
-              dismiss={() => setDeleteItemModalVisible(false)}
-              clientID={id}
-              assessmentID={assessID}
-              domain={domain}
-              index={itemIndex}
-            >   
-            </DeleteItemModal>
-            
+             
 
 
         </View>
 
-            <Link
-              href = {{pathname: '/client', params: { id: id }}}
-              style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
-              Finish
-            </Link>        
-        
       </View>
       </Tab>
       
@@ -122,6 +119,15 @@ function Discuss() {
         </Tab>
       
       </TabGroup>
+      
+      <View style={styles.centeredView}>
+            <Link
+              href = {{pathname: '/client', params: { id: id }}}
+              style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
+              Finish
+            </Link>
+      </View>
+      
       </View>
       
     </View>

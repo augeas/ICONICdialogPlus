@@ -51,14 +51,14 @@ const ClientPage = () => {
       >
       </FlatList>
       
-    <Link
+    <View style={{padding: 10}}><Link
        href = {{
          pathname: '/newsession',
          params: { id: id }
        }}
        style = {[styles.button, styles.buttonOpen, styles.buttonText]}
     >New Session
-    </Link>
+    </Link></View>
 
       <DeleteSessionModal
         isVisible={deletingSessionID != null}

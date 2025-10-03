@@ -113,9 +113,9 @@ const NewSession = () => {
     setSubmitted(true);
   }  
 
-  const isChecked = (i: number) => (thisAssessment[i] ? 
-    thisAssessment[i].score != null
-    && thisAssessment[i].moreHelp != null: false
+  const isChecked = (i: number) => (theseQuestions[i] ? 
+    theseQuestions[i].score != null
+    && theseQuestions[i].moreHelp != null : false
   );
   
   return (

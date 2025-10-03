@@ -51,7 +51,7 @@ const ClientPage = () => {
       >
       </FlatList>
       
-    <View style={{padding: 10}}><Link
+    <View style={{padding: 10}}><Link push
        href = {{
          pathname: '/newsession',
          params: { id: id }

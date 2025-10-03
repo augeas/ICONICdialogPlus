@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams,} from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 import { Client, useClientStore } from "../data/client";
@@ -40,6 +40,7 @@ function DateScore({domain, session, ts, label}) {
 }
 
 const Review = () => {
+  const router = useRouter();
   const [domain, setDomain] = useState(Domains.Mental);
   const [reviewTs, setReviewTs] = useState('');
   const clients = useClientStore((state) => state.clients);
@@ -120,11 +121,18 @@ const Review = () => {
 
       <View style={styles.centeredView}>
       {anyMoreHelp ?
-            <Link
+
+             <Link
               href = {{pathname: '/discuss', params: { id: id, ts: ts }}}
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
               Discuss
             </Link>
+
+            /**
+            <Pressable onPress={()=>router.replace({pathname: '/discuss', params: { id: id, ts: ts }})}>
+              <Text style = {[styles.button, styles.buttonOpen, styles.buttonText]}>{'Discuss'}</Text>
+            </Pressable>
+            **/
             : <Link
               href = {{pathname: '/client', params: { id: id }}}
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>

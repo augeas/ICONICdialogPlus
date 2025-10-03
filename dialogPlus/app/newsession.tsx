@@ -1,6 +1,6 @@
 
 import React, {useState, useEffect} from 'react';
-import { useLocalSearchParams, router } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView, StyleSheet, Text, Pressable, View, Image } from 'react-native';
 import { decode } from 'html-entities';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -40,6 +40,7 @@ const moreHelpButtons: RadioItem[] = [
 const submitPrompt = "You haven't answered all the questions.\nDo you really want to finish this session and review it?";
 
 const NewSession = () => {
+  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ts } = useLocalSearchParams<{ ts: string }>();
   const [domain, setDomain] = useState(Domains.Mental);
@@ -50,17 +51,14 @@ const NewSession = () => {
   const addAssessment = useAssesmentsStore((state) => state.addAssessment);
   const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
   const thisAssessment = ts ? assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString()) : {};
-  console.log('pong');
-  console.log(thisTs.toISOString());
   const [theseQuestions, setTheseQuestions] = useState(ts ? thisAssessment.questions : {});
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    console.log('ping...')
-    console.log(thisTs);
-    console.log(assessments[id]);
     if (hasSubmitted && assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString())) {
-      router.navigate({pathname: './review', params: { id: id, ts: ts != undefined ? ts : thisTs.getTime() }});
+      setSubmitted(false);
+      if (ts === undefined) router.replace({pathname: './newsession', params: { id: id, ts: thisTs.getTime() }});
+      router.push({pathname: './review', params: { id: id, ts: ts != undefined ? ts : thisTs.getTime() }});
     }
   }, [hasSubmitted, assessments]);
   

@@ -11,6 +11,7 @@ import { Tab, TabGroup } from '../components/Tabs';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
 import DomainImage from '../components/DomainImage'
 import SessionPrompt from '../components/SessionPrompt'
+import Smiley from '../components/Smiley';
 import styles from '../components/Styles';
 
 function Discuss() {
@@ -29,12 +30,16 @@ function Discuss() {
   const [newItemModalVisible, setNewItemModalVisible] = useState(false);
   const [itemIndex, setItemIndex] = useState();
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
-    
+
+  const getScaleValue = (i: DomainKey) => {
+    return (lastAssessment.questions[i] ? lastAssessment.questions[i].score : null);
+  };  
+  
     const disabledDomains = (i: DomainKey) => {
        return i == domain | (lastAssessment.questions[i] ? !lastAssessment.questions[i].moreHelp : true);
     };  
     
-    
+  const score = getScaleValue(domain);    
     
   return (
     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>  
@@ -74,8 +79,11 @@ function Discuss() {
       <Tab label={'how you answered'}>
       <View>
         <View style={styles.centeredView}>
-        <Text style={discussStyles.itemCountText}>{pluralItems(lastAssessment.questions[domain], domain)}</Text>
         
+        <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+        
+        <Text style={discussStyles.itemCountText}>{pluralItems(lastAssessment.questions[domain], domain)}</Text>
+
         <FlatList
           data={lastAssessment.questions[domain].actionItems}
           renderItem={

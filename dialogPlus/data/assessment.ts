@@ -120,9 +120,9 @@ export const pluralItems = (q: Question, k: DomainKey) => {
   const nItems = q.actionItems ? q.actionItems.length: 0;
   const title = DomainTitles[k];
   switch(nItems) {
-    case 0: return 'No Action Items for "' + title + '"';
+    case 0: return 'No Action Items for "' + title + '".';
     case 1: return '1 Action Item for "' + title  + '":';
-    default: return nItems + 'Action Items for "' + title  + '":';
+    default: return nItems + ' Action Items for "' + title  + '":';
   }
 }
 

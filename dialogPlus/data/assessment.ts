@@ -148,9 +148,22 @@ function serQuestion([domain, q]) {
   ]);
 }
 
+function serActionItems([domain, q]) {
+  const name = Domains[domain];
+  return new Map([
+    [name+'_action_items', q.actionItems ? q.actionItems.join('\n') : ''] 
+  ]);
+  
+}
+
+function flatten(col) {
+  return col.map((e)=>(Array.from(e))).flat()
+}
+
 function serAssessment(assess: Assessment) {
   const questions = Object.entries(assess.questions).map(serQuestion);
-  return new Map([['date', assess.timeStamp], ...questions.map((e)=>(Array.from(e))).flat()]);
+  const items = Object.entries(assess.questions).map(serActionItems);
+  return new Map([['date', assess.timeStamp], ...flatten(questions), ...flatten(items)]);
 }
 
 export function assessmentsToCSV(client: String, assessments: Assessment[]): String {

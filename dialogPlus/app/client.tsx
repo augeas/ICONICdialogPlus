@@ -5,7 +5,7 @@ import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";
-import { pluralSessions, Assessment, useAssesmentsStore } from "../data/assessment";
+import { pluralSessions, Assessment, useAssesmentsStore, assessmentsToCSV } from "../data/assessment";
 import SessionDate from '../components/SessionDate';
 import DeleteSessionModal from '../components/SessionModal';
 import styles from '../components/Styles';
@@ -22,7 +22,12 @@ const ClientPage = () => {
   clientAssessments = assessments[id] ? assessments[id].map(
     (a: Assessment)=>a.timeStamp
   ) : [];
-    
+
+  function exportCsv() {
+    const csv = assessmentsToCSV(clientName, assessments[id]);
+    console.log(csv);
+  }
+  
   return (
     <View style={styles.centeredView}>
      <Stack.Screen options={{ title: 'service user' }} />
@@ -60,6 +65,10 @@ const ClientPage = () => {
     >New Session
     </Link></View>
 
+    <View style={{padding: 10}}><Pressable onPress={exportCsv}>
+      <Text style = {[styles.button, styles.buttonOpen, styles.buttonText]}>Export</Text>
+    </Pressable></View>
+    
       <DeleteSessionModal
         isVisible={deletingSessionID != null}
         dismiss={()=>{setDeletingSessionID(null)}}

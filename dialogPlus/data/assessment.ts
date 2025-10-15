@@ -1,6 +1,7 @@
 
 import { create } from 'zustand';
 import { persist, subscribeWithSelector, createJSONStorage } from 'zustand/middleware'
+import { jsonToCSV } from 'react-native-csv'
 
 export const pluralSessions = (nsessions: number) => {
   switch(nsessions) {
@@ -116,8 +117,12 @@ type Question = {
  actionItems?: String[];
 }
 
+function questionItemCount(q: Question): number {
+  return q.actionItems ? q.actionItems.length: 0;
+}
+
 export const pluralItems = (q: Question, k: DomainKey) => {
-  const nItems = q.actionItems ? q.actionItems.length: 0;
+  const nItems = questionItemCount(q);
   const title = DomainTitles[k];
   switch(nItems) {
     case 0: return 'No Action Items for "' + title + '".';
@@ -129,6 +134,31 @@ export const pluralItems = (q: Question, k: DomainKey) => {
 type Assessment = {
   timeStamp: Date;
   questions: Record<DomainKey, Question>;
+}
+
+function assessmentMaxItems(a: assessment): number {
+    return Math.sum(Object.entries(a.questions).map(([k, q])=>(questionItemCount(q))));
+}
+
+function serQuestion([domain, q]) {
+  const name = Domains[domain];
+  return new Map([
+    [name+'_score', Responses[q.score]],
+    [name+'_help', q.moreHelp]
+  ]);
+}
+
+function serAssessment(assess: Assessment) {
+  const questions = Object.entries(assess.questions).map(serQuestion);
+  return new Map(questions.map((e)=>(Array.from(e))).flat());
+}
+
+export function assessmentsToCSV(client: String, assessments: Assessment[]): String {
+  const base = {service_user: client}
+  const rows = assessments.map(serAssessment);
+  return jsonToCSV(JSON.stringify(
+    rows.map((e)=>({...base, ...Object.fromEntries(e)}))
+  ));
 }
 
 interface assessmentsState {
@@ -177,5 +207,4 @@ export const useAssesmentsStore = create<assessmentsState>() (
     }
   ),
 );
-
 

@@ -6,6 +6,7 @@ import uuid from 'react-native-uuid';
 export interface Client {
   id: string;
   name: string;
+  lastExported?: Date;
 }
 
 interface ClientState {
@@ -24,7 +25,8 @@ export const useClientStore = create<ClientState>()(
             ...state.clients,
             {
               'id': uuid.v4(),
-              name
+              name,
+              lastExported: null
             } as Client,
           ]
         })

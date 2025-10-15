@@ -150,7 +150,7 @@ function serQuestion([domain, q]) {
 
 function serAssessment(assess: Assessment) {
   const questions = Object.entries(assess.questions).map(serQuestion);
-  return new Map(questions.map((e)=>(Array.from(e))).flat());
+  return new Map([['date', assess.timeStamp], ...questions.map((e)=>(Array.from(e))).flat()]);
 }
 
 export function assessmentsToCSV(client: String, assessments: Assessment[]): String {

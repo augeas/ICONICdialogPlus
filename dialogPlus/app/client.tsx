@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import { Link, useLocalSearchParams , Stack } from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
+
+
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";
@@ -9,6 +11,15 @@ import { pluralSessions, Assessment, useAssesmentsStore, assessmentsToCSV } from
 import SessionDate from '../components/SessionDate';
 import DeleteSessionModal from '../components/SessionModal';
 import styles from '../components/Styles';
+
+  function CSVfname(name: string) {
+    const [rawDate, rawTime] = new Date().toISOString().split('T')
+    return [
+      ...name.split(),
+      ...rawDate.split('-'), 
+      ...rawTime.split('.')[0].split(':')
+    ].join('_')+'.csv';
+  }
 
 const ClientPage = () => {
   const [deletingSessionID, setDeletingSessionID] = useState(null);
@@ -22,11 +33,6 @@ const ClientPage = () => {
   clientAssessments = assessments[id] ? assessments[id].map(
     (a: Assessment)=>a.timeStamp
   ) : [];
-
-  function exportCsv() {
-    const csv = assessmentsToCSV(clientName, assessments[id]);
-    console.log(csv);
-  }
   
   return (
     <View style={styles.centeredView}>
@@ -64,10 +70,14 @@ const ClientPage = () => {
        style = {[styles.button, styles.buttonOpen, styles.buttonText]}
     >New Session
     </Link></View>
-
-    <View style={{padding: 10}}><Pressable onPress={exportCsv}>
-      <Text style = {[styles.button, styles.buttonOpen, styles.buttonText]}>Export</Text>
-    </Pressable></View>
+    
+    <View>
+      <Link style = {[styles.button, styles.buttonOpen, styles.buttonText]}
+        href={'data:text/plain,'+encodeURIComponent(assessmentsToCSV(clientName, assessments[id]))}
+        download={CSVfname(clientName)}
+        target="_blank" 
+      >Export</Link>
+    </View>
     
       <DeleteSessionModal
         isVisible={deletingSessionID != null}

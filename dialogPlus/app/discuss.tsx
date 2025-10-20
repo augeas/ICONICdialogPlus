@@ -52,7 +52,11 @@ function Discuss() {
         />
       </View>
 
-      <View View style={{flex: 2, flexDirection: 'column'}}>
+              <View style={{flex: 2, justifyContent: 'center'}}>
+                <DomainImage domain={domain}/>
+            </View>
+      
+      <View View style={{flex: 3, flexDirection: 'column'}}>
 
          <ActionItemModal
               isVisible={newItemModalVisible}
@@ -72,16 +76,17 @@ function Discuss() {
               index={itemIndex}
             >   
             </DeleteItemModal>
-      
-      
+            
       <TabGroup>
       
       <Tab label={'how you answered'}>
       <View>
         <View style={styles.centeredView}>
         
+         <View View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
         <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
-        
+        <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
+        </View>
         <Text style={discussStyles.itemCountText}>{pluralItems(lastAssessment.questions[domain], domain)}</Text>
 
         <FlatList
@@ -122,7 +127,6 @@ function Discuss() {
       </Tab>
       
         <Tab label={'more about this'}>
-            <DomainImage domain={domain}/>
             <SessionPrompt domain={domain}/>
         </Tab>
       
@@ -165,6 +169,12 @@ const discussStyles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: 'lightgrey'  
+  },
+  scoreText: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 10
   },
 });
 

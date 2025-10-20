@@ -71,13 +71,13 @@ const ClientPage = () => {
     >New Session
     </Link></View>
     
-    <View>
+    {clientAssessments.length > 0  &&  <View>
       <Link style = {[styles.button, styles.buttonOpen, styles.buttonText]}
         href={'data:text/plain,'+encodeURIComponent(assessmentsToCSV(clientName, assessments[id]))}
         download={CSVfname(clientName)}
         target="_blank" 
       >Export</Link>
-    </View>
+    </View> }
     
       <DeleteSessionModal
         isVisible={deletingSessionID != null}

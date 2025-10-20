@@ -168,7 +168,7 @@ function serAssessment(assess: Assessment) {
 
 export function assessmentsToCSV(client: String, assessments: Assessment[]): String {
   const base = {service_user: client}
-  const rows = assessments.map(serAssessment);
+  const rows = assessments ? assessments.map(serAssessment) : [];
   return jsonToCSV(JSON.stringify(
     rows.map((e)=>({...base, ...Object.fromEntries(e)}))
   ));

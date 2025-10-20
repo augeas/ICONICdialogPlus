@@ -140,6 +140,10 @@ const NewSession = () => {
           />
         </View>
       
+      <View style={{flex: 2, justifyContent: 'center'}}>
+         <DomainImage domain={domain}/>
+      </View>
+      
         <View style={{flex: 3}}>
         
         <TabGroup>
@@ -160,8 +164,8 @@ const NewSession = () => {
           
           
           <Tab label={'more about this'}>
-                <View style={{flex: 3}}>
-                  <DomainImage domain={domain}/>
+                <View style={{flex: 2}}>
+                  
                 <SessionPrompt domain={domain}/>
               </View>
           </Tab>

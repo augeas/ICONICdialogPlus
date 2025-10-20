@@ -81,7 +81,11 @@ const Review = () => {
           />
         </View>
         
-        <View style={{flexDirection: 'column', flex: 4, justifyContent: 'space-between'}}>
+              <View style={{flex: 2, justifyContent: 'center'}}>
+                <DomainImage domain={domain}/>
+            </View>
+        
+        <View style={{flexDirection: 'column', flex: 3, justifyContent: 'space-between'}}>
         <TabGroup>
         
         <Tab label={'how you answered'}><View>
@@ -113,7 +117,6 @@ const Review = () => {
         </View></Tab>
         
         <Tab label={'more about this'}>
-            <DomainImage domain={domain}/>
             <SessionPrompt domain={domain}/>
         </Tab>
       

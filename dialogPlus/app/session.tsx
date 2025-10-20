@@ -42,6 +42,10 @@ const Session = () => {
           />
         </View>
       
+            <View style={{flex: 2, justifyContent: 'center'}}>
+         <DomainImage domain={domain}/>
+      </View>
+      
       <View style={{flex: 3}}>
       <TabGroup>
         <Tab label={'how you answered'}>
@@ -67,7 +71,6 @@ const Session = () => {
             </View>
           </Tab>
           <Tab label={'more about this'}>
-              <DomainImage domain={domain}/>
               <SessionPrompt domain={domain}/>
 
           </Tab>

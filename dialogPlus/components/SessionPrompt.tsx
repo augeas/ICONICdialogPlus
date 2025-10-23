@@ -19,7 +19,7 @@ export default function SessionPrompt({domain}) {
         }
         horizontal={false}
       />
-      <Text style={promptStyles.promptHeading}>It includes:</Text>
+      <Text style={promptStyles.promptHeading}>For Example:</Text>
       <FlatList
         data={QuestionIncludes[domain]}
         renderItem={

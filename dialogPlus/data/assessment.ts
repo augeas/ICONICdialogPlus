@@ -14,49 +14,34 @@ export const pluralSessions = (nsessions: number) => {
 export enum Domains {
   Mental = 0,
   Physical,
-  Work,
-  Learning,
   Home,
-  Leisure,
+  Activities,
+  Work,
   Family,
   Friends,
   Safety,
   Independence,
+  Communication,
   Medication,
-  Practical,
+  Support,
   Meetings,
 };
 
 export type DomainKey = keyof typeof Domains;
 
-
-//1. How happy are you with your mental health?
-//2. How happy are you with your physical health?
-//3. How happy are you with your work?
-//4. How happy are you with your learning?
-//5. How happy are you with where you live?
-//6. How happy are you with your day activities?
-//7. How happy are you about your relationships with your family?
-//8. How happy are you about your friendships?
-//9. How happy are you about feeling safe in your home or outside?
-//10. How happy are you about your independence?
-//11. How happy are you with your medication?
-//12. How happy are you with the support that you get from care workers?
-//13. How happy are you about your meetings with your care team?
-
 export const DomainTitles: Record<DomainKey, string> = {
   [Domains.Mental]: 'Mental Health',
   [Domains.Physical]: 'Physical Health',
-  [Domains.Work]: 'Work',
-  [Domains.Learning]: 'Learning',
-  [Domains.Home]: 'Where You Live',
-  [Domains.Leisure]: 'Day Activities',
+  [Domains.Home]: 'Your Home',
+  [Domains.Activities]: 'Day Activities',
+  [Domains.Work]: 'Work or College',
   [Domains.Family]: 'Family',
   [Domains.Friends]: 'Friendships',
-  [Domains.Safety]: 'Feeling Safe',
-  [Domains.Independence]: 'Independence',  
+  [Domains.Safety]: 'Your Safety',
+  [Domains.Independence]: 'Independence',
+  [Domains.Communication]: 'Communication',
   [Domains.Medication]: 'Medication',
-  [Domains.Practical]: 'Support',
+  [Domains.Support]: 'Support from Carers',
   [Domains.Meetings]: 'Meetings'
 };
 
@@ -64,21 +49,21 @@ export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Mental]: 'with your mental health',
   [Domains.Physical]: 'with your physical health',
   [Domains.Work]: 'with your work',
-  [Domains.Learning]: 'with your learning',  
   [Domains.Home]: 'with where you live',
-  [Domains.Leisure]: 'with your day activities',
+  [Domains.Activities]: 'with your day activities',
   [Domains.Family]: 'about your relationships with your family',
   [Domains.Friends]: 'about your friendships',
   [Domains.Safety]: 'about feeling safe in your home or outside',
   [Domains.Independence]: 'about your independence',
+  [Domains.Communication]: 'with the way you communicate with other people',
   [Domains.Medication]: 'with your medication',
-  [Domains.Practical]: 'with the support that you get from care workers',
+  [Domains.Support]: 'with the support that you get from care workers',
   [Domains.Meetings]: 'about your meetings with your care team'
 };
 
 export const Responses: Record<number, string> = {
   1: 'Unhappy',
-  2: 'Not Sure',
+  2: 'In The Middle / Not Sure',
   3: 'Happy',
 };
 

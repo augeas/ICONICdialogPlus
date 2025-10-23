@@ -7,7 +7,7 @@ export const DomainImageURI: Record<DomainKey, Object> = {
   [Domains.Mental]: require('../assets/images/domains/mental_health.png'),
   [Domains.Physical]: require('../assets/images/domains/physical_health.png'),
   [Domains.Work]: require('../assets/images/domains/work.png'),
-  [Domains.Activities]: require('../assets/images/domains/learning.png'),  
+  [Domains.Activities]: require('../assets/images/domains/day_activities.png'),  
   [Domains.Home]: require('../assets/images/domains/home.png'),
   [Domains.Family]: require('../assets/images/domains/family.png'),
   [Domains.Friends]: require('../assets/images/domains/friends.png'),

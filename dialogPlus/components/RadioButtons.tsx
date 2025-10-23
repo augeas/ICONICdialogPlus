@@ -18,10 +18,10 @@ const RadioButton = ({value, id, selected, onClick, children}: radioProps) => {
       onPress={onClick}
     >
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {children}
         <View style={[radioStyles.radioButton, selected ? radioStyles.radioSelected: radioStyles.radioUnselected]}>
           <Text style={selected ? radioStyles.radioTextSelected : radioStyles.radioTextUnselected}>{value}</Text>
         </View>
-        {children}
       </View>
     </Pressable>
   )
@@ -68,7 +68,7 @@ const radioStyles = StyleSheet.create({
     flexDirection: 'row',
     gap: 20,
     padding: 10,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 22,    
   },

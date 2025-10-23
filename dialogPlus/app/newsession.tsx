@@ -147,23 +147,25 @@ const NewSession = () => {
         <View style={{flex: 3}}>
         
         <TabGroup>
-          <Tab label={'answer this question'}>
+          <Tab label={'Question'}>
           <View style={[styles.centeredView, {width: '100%', height: '100%' }]}>
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
+            <View>
             <RadioGroup
               data={scaleButtons}
               onSelect={scaleClick}
               selectedId={getScaleValue(domain)}
               row={false}
             />
+            </View>
           
            </View>          
           
           </Tab>
           
           
-          <Tab label={'more about this'}>
+          <Tab label={'More Information'}>
                 <View style={{flex: 2}}>
                   
                 <SessionPrompt domain={domain}/>

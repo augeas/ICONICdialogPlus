@@ -119,7 +119,7 @@ const NewSession = () => {
   );
   
   return (
-    <SafeAreaView>
+    <View>
       <DialogModal
         title={submitPrompt}
         submitText="Review"
@@ -139,16 +139,18 @@ const NewSession = () => {
             onClick={setDomain}
           />
         </View>
-      
-      <View style={{flex: 2, justifyContent: 'center'}}>
-         <DomainImage domain={domain}/>
-      </View>
-      
+            
         <View style={{flex: 3}}>
+
+                
         
         <TabGroup>
-          <Tab label={'Question'}>
-          <View style={[styles.centeredView, {width: '100%', height: '100%' }]}>
+          <Tab label={'Question'}><View style={{flex: 4, flexDirection: 'row', alignItems: 'flexStart'}}>
+        
+         <View style={{distributeConent: 'center'}}><DomainImage domain={domain}/></View>
+        
+          <View style={styles.centeredView}>
+            
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
             <View>
@@ -162,7 +164,7 @@ const NewSession = () => {
           
            </View>          
           
-          </Tab>
+          </View></Tab>
           
           
           <Tab label={'More Information'}>
@@ -203,7 +205,7 @@ const NewSession = () => {
                   
       </View>        
         
-    </SafeAreaView>
+    </View>
   ) 
 }
 

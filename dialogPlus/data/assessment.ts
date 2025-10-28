@@ -55,46 +55,37 @@ export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Friends]: 'about your friendships',
   [Domains.Safety]: 'about feeling safe in your home or outside',
   [Domains.Independence]: 'about your independence',
-  [Domains.Communication]: 'with the way you communicate with other people',
+  [Domains.Communication]: 'with the way you communicate\nwith other people',
   [Domains.Medication]: 'with your medication',
-  [Domains.Support]: 'with the support that you get from care workers',
+  [Domains.Support]: 'with the support that you get\nfrom care workers',
   [Domains.Meetings]: 'about your meetings with your care team'
 };
 
 export const Responses: Record<number, string> = {
-  1: 'Unhappy',
-  2: 'In The Middle / Not Sure',
   3: 'Happy',
+  2: 'In The Middle / Not Sure',
+  1: 'Unhappy'  
 };
 
 export const IconScale: Record<number, string> = {
-  1: 'fa-face-sad-cry',
-  2: 'fa-face-meh',
   3: 'fa-face-smile-beam',
+  2: 'fa-face-meh',
+  1: 'fa-face-sad-cry'
 };
 
 export const SmileyScaleIcon: Record<number, string> =
 {
-  1: 'emoticon-frown',
+  3: 'emoticon',
   2: 'emoticon-neutral',
-  3: 'emoticon'
+  1: 'emoticon-frown',
 }
 
 export const SmileyScaleColour: Record<number, string> =
 {
-  1: 'red',
+  3: 'lime',
   2: 'yellow',
-  3: 'lime'
+  1: 'red'
 }
-
-
-export const GlyphScale: Record<number, number> = {
-  1: 128557,
-  2: 128528,
-  3: 128522,
-}
-
-
 
 type Question = {
  score: number;

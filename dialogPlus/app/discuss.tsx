@@ -6,13 +6,59 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import DomainButtons from '../components/DomainButtons';
 import { Client, useClientStore } from "../data/client";
+import { Steps, StepNames, StepPrompts } from "../data/discuss";
 import { Assessment, Domains, DomainKey, DomainTitles, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
+import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
 import DomainImage from '../components/DomainImage'
 import SessionPrompt from '../components/SessionPrompt'
 import Smiley from '../components/Smiley';
 import styles from '../components/Styles';
+
+function Actions({assess, domain, onDelete, onCreate}) {
+    return (
+      <View>
+       <Text style={discussStyles.itemCountText}>{pluralItems(assess.questions[domain], domain)}</Text>
+      <FlatList
+          data={assess.questions[domain].actionItems}
+          renderItem={
+            (item) => {return (
+              <View style={discussStyles.itemContainer}>
+                <Text style={discussStyles.itemText}>{item.item}</Text>
+                <Pressable onPress={()=>onDelete(item.index)}>
+                  <View style={[styles.button, discussStyles.deleteButton]}>
+                    <MaterialCommunityIcons name={'trash-can-outline'} size={24} color={'black'} />
+                  </View>
+                </Pressable>
+              </View>
+            )}
+          }
+        />
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={onCreate}
+        >
+          <Text style={styles.buttonText}>New Action Item</Text>
+        </Pressable>        
+    </View>
+  )
+}
+
+function DiscussStep({step}) {
+  return (<View>
+    <FlatList
+        data={StepPrompts[step]}
+        renderItem={(prompt)=>{return(<Text style={discussStyles.promptText}>{prompt.item}</Text>)}}
+    />
+  </View>)
+}
+
+const stageButtons: RadioItem[] = Object.entries(StepNames).map(
+  ([key, val]) => {
+      return {value: 'Step '+key+': '+val, id: key }
+  }
+);
 
 function Discuss() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -27,6 +73,7 @@ function Discuss() {
   );
   
   const [domain, setDomain] = useState(firstMoreHelp);
+  const [step, setStep] = useState(Steps.Understanding);
   const [newItemModalVisible, setNewItemModalVisible] = useState(false);
   const [itemIndex, setItemIndex] = useState();
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
@@ -40,7 +87,7 @@ function Discuss() {
     };  
     
   const score = getScaleValue(domain);    
-    
+
   return (
     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>  
       <View style={{flex: 1}}>
@@ -51,22 +98,17 @@ function Discuss() {
           onClick={setDomain}
         />
       </View>
-
-              <View style={{flex: 2, justifyContent: 'center'}}>
-                <DomainImage domain={domain}/>
-            </View>
       
-      <View View style={{flex: 3, flexDirection: 'column'}}>
-
+      
+      
          <ActionItemModal
               isVisible={newItemModalVisible}
               dismiss={() => setNewItemModalVisible(false)}
               clientID={id}
               assessmentID={assessID}
               domain={domain}
-            >   
-            </ActionItemModal>
-
+            />   
+            
           <DeleteItemModal
               isVisible={deleteItemModalVisible}
               dismiss={() => setDeleteItemModalVisible(false)}
@@ -74,73 +116,60 @@ function Discuss() {
               assessmentID={assessID}
               domain={domain}
               index={itemIndex}
-            >   
-            </DeleteItemModal>
+            />   
+
+    <View View style={{flex: 4, flexDirection: 'column', alignItems: 'stretch'}}>
             
       <TabGroup>
+  
+        <Tab label={'how you answered'}><View style={{flex: 4, flexDirection: 'column', alignItems: 'flex-start'}}>
+
+            <View style={styles.centeredView}>
+              <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
+                  <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+              <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
+            </View>        
+
+          <View style={{flex: 4, flexDirection: 'row', alignItems: 'flex-start'}}>
       
-      <Tab label={'how you answered'}>
-      <View>
-        <View style={styles.centeredView}>
-        
-         <View View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-        <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
-        <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
-        </View>
-        <Text style={discussStyles.itemCountText}>{pluralItems(lastAssessment.questions[domain], domain)}</Text>
+          <DomainImage domain={domain}/>
 
-        <FlatList
-          data={lastAssessment.questions[domain].actionItems}
-          renderItem={
-            (item) => {return (
-              <View style={discussStyles.itemContainer}>
-                <Text style={discussStyles.itemText}>{item.item}</Text>
-                    <Pressable onPress={
-                      () => {
-                        setItemIndex(item.index);
-                        setDeleteItemModalVisible(true);
-                      }
-                      
-                    }>
-                      <View style={[styles.button, discussStyles.deleteButton]}>
-                        <MaterialCommunityIcons name={'trash-can-outline'} size={24} color={'black'} />
-                      </View>
-                    </Pressable>
-                </View>
-            )}
-          }
-        />
-        
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => {setNewItemModalVisible(true)}}
-        >
-          <Text style={styles.buttonText}>New Action Item</Text>
-        </Pressable>
-
-             
-
+            <RadioGroup
+              data={stageButtons}
+              onSelect={(i: number)=>{setStep(i)}}
+              selectedId={step}
+              row={false}
+            />
+      
+          { step==Steps.Actions ? <Actions
+            assess={lastAssessment}
+            domain={domain}
+            onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
+            onCreate={()=>setNewItemModalVisible(true)}
+          /> : <DiscussStep step={step} /> }
 
         </View>
 
-      </View>
-      </Tab>
+        </View>
+      </View></Tab>
       
         <Tab label={'more about this'}>
             <SessionPrompt domain={domain}/>
         </Tab>
       
       </TabGroup>
-      
+
       <View style={styles.centeredView}>
             <Link
               href = {{pathname: '/client', params: { id: id }}}
-              style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
+              style = {[styles.centeredView, styles.button, styles.buttonOpen, styles.buttonText]}>
               Finish
             </Link>
-      </View>
+      </View>      
       
       </View>
+      
+
       
     </View>
       
@@ -148,6 +177,12 @@ function Discuss() {
 }
 
 const discussStyles = StyleSheet.create({
+    promptText: {
+    fontSize: 26,
+    color: 'black',
+    fontWeight: 'bold',
+    padding: 10,
+  },
     itemCountText: {
     fontSize: 26,
     color: 'black',

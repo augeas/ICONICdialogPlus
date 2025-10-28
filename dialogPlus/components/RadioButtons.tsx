@@ -49,7 +49,7 @@ export const RadioGroup = ({data, selectedId, onSelect=(i: number) => {}, row=tr
            <View style={radioStyles.radioGroup}>
              <RadioButton
                value={String(item.value)}
-               id={item.id} selected={selectedId===item.id}
+               id={item.id} selected={selectedId==item.id}
                onClick={() => onSelect(item.id)}
              >
               {item.label}

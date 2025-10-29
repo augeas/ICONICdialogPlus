@@ -5,9 +5,10 @@ import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import DomainButtons from '../components/DomainButtons';
-import { Client, useClientStore } from "../data/client";
-import { Steps, StepNames, StepPrompts } from "../data/discuss";
-import { Assessment, Domains, DomainKey, DomainTitles, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Client, useClientStore } from '../data/client';
+import { Steps, StepNames, StepPrompts } from '../data/discuss';
+import StepImages  from '../components/DiscussStepImage';
+import { Assessment, Domains, DomainKey, DomainTitles, questionItemCount, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
@@ -43,15 +44,6 @@ function Actions({assess, domain, onDelete, onCreate}) {
         </Pressable>        
     </View>
   )
-}
-
-function DiscussStep({step}) {
-  return (<View>
-    <FlatList
-        data={StepPrompts[step]}
-        renderItem={(prompt)=>{return(<Text style={discussStyles.promptText}>{prompt.item}</Text>)}}
-    />
-  </View>)
 }
 
 const stageButtons: RadioItem[] = Object.entries(StepNames).map(
@@ -90,17 +82,7 @@ function Discuss() {
 
   return (
     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>  
-      <View style={{flex: 1}}>
-        <DomainButtons
-          domain={domain}
-          isChecked={(i: number) => false}
-          disabled={disabledDomains}
-          onClick={setDomain}
-        />
-      </View>
-      
-      
-      
+
          <ActionItemModal
               isVisible={newItemModalVisible}
               dismiss={() => setNewItemModalVisible(false)}
@@ -116,44 +98,56 @@ function Discuss() {
               assessmentID={assessID}
               domain={domain}
               index={itemIndex}
-            />   
-
-    <View View style={{flex: 4, flexDirection: 'column', alignItems: 'stretch'}}>
+            /> 
+    
+    <View style={{flex: 1}}>
+        <DomainButtons
+          domain={domain}
+          isChecked={(i: number) => {return (
+            lastAssessment.questions[i] ? questionItemCount(lastAssessment.questions[i]) > 0 : false
+          )}}
+          disabled={disabledDomains}
+          onClick={setDomain}
+        />
+      </View>
+      
+    <View View style={{flex: 4, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
             
       <TabGroup>
   
-        <Tab label={'how you answered'}><View style={{flex: 4, flexDirection: 'column', alignItems: 'flex-start'}}>
+        <Tab label={'Discuss'}><View style={{flex: 4, flexDirection: 'column', alignItems: 'flex-start'}}>
 
             <View style={styles.centeredView}>
               <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={discussStyles.scoreText}>{DomainTitles[domain]}</Text>
                   <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
-              <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
+                  <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
             </View>        
 
-          <View style={{flex: 4, flexDirection: 'row', alignItems: 'flex-start'}}>
+          <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
       
           <DomainImage domain={domain}/>
 
-            <RadioGroup
+            <View style={{justifyContent: 'stretch'}}><RadioGroup
               data={stageButtons}
               onSelect={(i: number)=>{setStep(i)}}
               selectedId={step}
               row={false}
-            />
+            /></View>
       
           { step==Steps.Actions ? <Actions
             assess={lastAssessment}
             domain={domain}
             onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
             onCreate={()=>setNewItemModalVisible(true)}
-          /> : <DiscussStep step={step} /> }
+          /> : <StepImages step={step} /> }
 
         </View>
 
         </View>
       </View></Tab>
       
-        <Tab label={'more about this'}>
+        <Tab label={'More About This'}>
             <SessionPrompt domain={domain}/>
         </Tab>
       
@@ -199,7 +193,7 @@ const discussStyles = StyleSheet.create({
     borderRadius: 20,
      borderColour: 'black',
     padding: 5,
-    marginVertical: 5,
+    marginVertical: 10,
     marginHorizontal: 5,
   },
   deleteButton: {
@@ -208,8 +202,9 @@ const discussStyles = StyleSheet.create({
   scoreText: {
     alignSelf: 'center',
     fontWeight: 'bold',
-    fontSize: 20,
-    padding: 10
+    fontSize: 24,
+    padding: 10,
+    marginHorizontal: 10
   },
 });
 

@@ -22,7 +22,7 @@ export const StepPrompts: Record<StepKey, string[]> = {
     ],
     [Steps.Forward]: [
       'What would be the best situation for you?\n(give examples)',
-      'What would be the be a little better?\n(give examples)'
+      'What would be a little better?\n(give examples)'
     ],
     [Steps.Options]: [
         'What can you do?\n(give examples of possible actions)',

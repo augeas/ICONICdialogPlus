@@ -93,7 +93,7 @@ type Question = {
  actionItems?: String[];
 }
 
-function questionItemCount(q: Question): number {
+export function questionItemCount(q: Question): number {
   return q.actionItems ? q.actionItems.length: 0;
 }
 

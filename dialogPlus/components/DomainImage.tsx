@@ -3,7 +3,7 @@ import { FlatList, View, Image } from 'react-native';
 
 import { Domains, DomainKey } from "../data/assessment";
 
-export const DomainImageURI: Record<DomainKey, Object> = {
+const DomainImageURI: Record<DomainKey, Object> = {
   [Domains.Mental]: [require('../assets/images/domains/mental_health.png')],
   [Domains.Physical]: [require('../assets/images/domains/physical_health.png')],
   [Domains.Work]: [
@@ -22,8 +22,6 @@ export const DomainImageURI: Record<DomainKey, Object> = {
   [Domains.Meetings]: [require('../assets/images/domains/care_team.png')]
 }
 
-
-
 function DomainImage({domain}) {
   return (
     <FlatList
@@ -32,15 +30,5 @@ function DomainImage({domain}) {
     />
   );
 }
-
-{/*
- const DomainImage = ({domain}) => {
-  return (
-      <View>
-        <Image source={DomainImageURI[domain]} />
-      </View>
-  )
-}
-*/}
 
 export default DomainImage;

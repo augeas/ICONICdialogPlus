@@ -48,8 +48,8 @@ export const DomainTitles: Record<DomainKey, string> = {
 export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Mental]: 'with your mental health',
   [Domains.Physical]: 'with your physical health',
-  [Domains.Work]: 'with your work',
   [Domains.Home]: 'with where you live',
+  [Domains.Work]: 'with your work',
   [Domains.Activities]: 'with your day activities',
   [Domains.Family]: 'about your relationships with your family',
   [Domains.Friends]: 'about your friendships',

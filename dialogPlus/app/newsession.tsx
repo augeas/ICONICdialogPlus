@@ -140,7 +140,7 @@ const NewSession = () => {
           />
         </View>
             
-        <View style={{flex: 3}}>
+        <View style={{flex: 6}}>
 
                 
         

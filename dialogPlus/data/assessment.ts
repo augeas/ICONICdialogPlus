@@ -62,29 +62,29 @@ export const DomainPrompts: Record<DomainKey, string> = {
 };
 
 export const Responses: Record<number, string> = {
-  3: 'Happy',
+  1: 'Happy',
   2: 'In The Middle / Not Sure',
-  1: 'Unhappy'  
+  3: 'Unhappy'  
 };
 
 export const IconScale: Record<number, string> = {
-  3: 'fa-face-smile-beam',
+  1: 'fa-face-smile-beam',
   2: 'fa-face-meh',
-  1: 'fa-face-sad-cry'
+  3: 'fa-face-sad-cry'
 };
 
 export const SmileyScaleIcon: Record<number, string> =
 {
-  3: 'emoticon',
+  1: 'emoticon',
   2: 'emoticon-neutral',
-  1: 'emoticon-frown',
+  3: 'emoticon-frown',
 }
 
 export const SmileyScaleColour: Record<number, string> =
 {
-  3: 'lime',
+  1: 'lime',
   2: 'yellow',
-  1: 'red'
+  3: 'red'
 }
 
 type Question = {

@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams , Stack } from "expo-router";
-import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
+import { Link, useLocalSearchParams, useRouter, Stack } from "expo-router";
+import { FlatList, StyleSheet, Text, Pressable,  TouchableOpacity, View } from 'react-native';
 
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -22,6 +22,7 @@ import styles from '../components/Styles';
   }
 
 const ClientPage = () => {
+  const router = useRouter();
   const [deletingSessionID, setDeletingSessionID] = useState(null);
   const clients = useClientStore((state) => state.clients);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
@@ -49,9 +50,8 @@ const ClientPage = () => {
         contentContainerStyle={sessionListStyles.sessionContainer}
         renderItem={
          ({item}) => <View style={sessionListStyles.sessionItem}>
-          <Link
-            href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
-          > 
+         <Link href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
+         >
             <SessionDate timeStamp={item}/>
           </Link>
           <Pressable onPress={() => {setDeletingSessionID(item)}}>
@@ -62,14 +62,17 @@ const ClientPage = () => {
       >
       </FlatList>
       
-    <View style={{padding: 10}}><Link push
-       href = {{
-         pathname: '/newsession',
+    <View style={{padding: 10}}>
+      <Link push
+        href = {{
+          pathname: '/newsession',
          params: { id: id }
-       }}
+        }}
        style = {[styles.button, styles.buttonOpen, styles.buttonText]}
-    >New Session
-    </Link></View>
+      >
+        <Text>New Session</Text>
+      </Link>
+  </View>
     
     {clientAssessments.length > 0  &&  <View>
       <Link style = {[styles.button, styles.buttonOpen, styles.buttonText]}

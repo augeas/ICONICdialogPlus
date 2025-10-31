@@ -126,21 +126,25 @@ function Discuss() {
 
           <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
       
+          <View style={{flex: 1}}>
           <DomainImage domain={domain}/>
-
-            <View style={{justifyContent: 'stretch'}}><RadioGroup
+          </View>
+          
+            <View style={{flex: 1, justifyContent: 'stretch'}}><RadioGroup
               data={stageButtons}
               onSelect={(i: number)=>{setStep(i)}}
               selectedId={step}
               row={false}
             /></View>
-      
+        
+          <View style={{flex: 1}}>
           { step==Steps.Actions ? <Actions
             assess={lastAssessment}
             domain={domain}
             onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
             onCreate={()=>setNewItemModalVisible(true)}
           /> : <StepImages step={step} /> }
+          </View>
 
         </View>
 
@@ -148,7 +152,9 @@ function Discuss() {
       </View></Tab>
       
         <Tab label={'More About This'}>
+            <View style={{flex: 4}}>
             <SessionPrompt domain={domain}/>
+            </View>
         </Tab>
       
       </TabGroup>

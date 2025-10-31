@@ -49,7 +49,7 @@ export const QuestionPrompts: Record<DomainKey, string[]> = {
   ],
   [Domains.Support]: [
     'This question is asking about the help that you are given from support workers, paid carers, and family carers.'
-    +' Support might help you with:',
+    +' \nSupport might help you with:',
     'Money', 'Where you live', 'Hobbies and Interests', 'Taking medication', 'Meeting other people',
     'Getting around your area'
   ],

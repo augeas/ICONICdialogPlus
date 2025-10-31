@@ -19,9 +19,9 @@ function Score({assess, domain}) {
   const colour = score ? SmileyScaleColour[score] : null;
   if (code)
     return (
-      <View style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
-        <Text style={reviewStyles.scoreText}>{Responses[score]}</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
         <Smiley code={code} size={60} colour={colour} />
+        <Text style={reviewStyles.scoreText}>{Responses[score]}</Text>
       </View>
     );
   else
@@ -30,7 +30,7 @@ function Score({assess, domain}) {
 
 function DateScore({domain, session, ts, label}) {
   return (session ? (session.questions[domain] ?
-    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <Text style={reviewStyles.scoreText}>{label}</Text>
       <SessionDate timeStamp={ts}/>
       <Score assess={session} domain={domain}></Score>
@@ -80,18 +80,25 @@ const Review = () => {
               onClick={setDomain}
           />
         </View>
-        
-              <View style={{flex: 2, justifyContent: 'center'}}>
-                <DomainImage domain={domain}/>
-            </View>
-        
+                
         <View style={{flexDirection: 'column', flex: 3, justifyContent: 'space-between'}}>
         <TabGroup>
         
         <Tab label={'how you answered'}><View>
         
-              <View style={{flexDirection: 'row', justifyContent: 'center', padding: 10}}>
+              <View style={{flexDirection: 'row', justifyContent: 'flex-start', padding: 10}}>
+              
+              <View style={{flex: 1, justifyContent: 'center'}}>
+                <DomainImage domain={domain}/>
+            </View>
+            
+            <View style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 10}}>
+           
+           
+           
        {previousAssessments.length ?
+         <View>
+         <Text style={reviewStyles.scoreText}>Choose a previous session to compare:</Text>
          <FlatList
             data={previousAssessments}
             horizontal={true}
@@ -104,13 +111,20 @@ const Review = () => {
             }
          >
          </FlatList>
-        : <Text>(No previous sessions)</Text>
+         </View>
+        : <Text style={reviewStyles.scoreText}>(No previous sessions to compare.)</Text>
        } 
-      </View> 
+      
         
           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
+          <View>
           <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
           <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
+          </View>
+          
+          </View> 
+          
+          </View>
 
           
           
@@ -130,12 +144,6 @@ const Review = () => {
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
               Discuss
             </Link>
-
-            /**
-            <Pressable onPress={()=>router.replace({pathname: '/discuss', params: { id: id, ts: ts }})}>
-              <Text style = {[styles.button, styles.buttonOpen, styles.buttonText]}>{'Discuss'}</Text>
-            </Pressable>
-            **/
             : <Link
               href = {{pathname: '/client', params: { id: id }}}
               style = {[styles.button, styles.buttonOpen, styles.buttonText]}>
@@ -169,6 +177,7 @@ const reviewStyles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 20,
+    padding: 10
   },
 });
 

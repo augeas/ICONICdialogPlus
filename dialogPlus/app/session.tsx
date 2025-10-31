@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { useLocalSearchParams, router } from "expo-router";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, pluralItems, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
@@ -30,9 +30,9 @@ const Session = () => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].moreHelp : null);
   };
   return (
-    <SafeAreaView>
+    <View>
 
-      <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+      <View style={{flex: 5, flexDirection: 'row', justifyContent: 'flex-start'}}>
         <View style={{flex: 1}}>
           <DomainButtons
             domain={domain}
@@ -42,33 +42,40 @@ const Session = () => {
           />
         </View>
       
-            <View style={{flex: 2, justifyContent: 'center'}}>
-         <DomainImage domain={domain}/>
-      </View>
-      
       <View style={{flex: 3}}>
       <TabGroup>
         <Tab label={'how you answered'}>
-            <View style={sessionStyles.body}>
-              <SessionDate timeStamp={thisTs}/>
-              <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
-              <View style={sessionStyles.response}>
-                <Text style={{fontSize: 30}}>{Responses[score]}</Text>
-                <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+        
+            <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+              <View style={{flex: 1}}>
+                <DomainImage domain={domain}/>
               </View>
-              <Text style={{fontSize: 30}}>I {getHelpValue(domain) ? "need" : "don't need"} more help.</Text>
-              <Text style={{fontSize: 30}}>{pluralItems(thisAssessment.questions[domain], domain)}</Text>
-              
-        <FlatList
-          data={thisAssessment.questions[domain].actionItems}
-          renderItem={
-            (item) => {return (
-                <Text style={{fontSize: 30}}>{item.item}</Text>
-            )}
-          }
-        />              
-              
+            < View style={{flex: 2}}>
+                <View style={{alignItems: 'center'}}>
+                  <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
+                
+                  <View style={sessionStyles.response}>
+                    <SessionDate timeStamp={thisTs}/>
+                    <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+                    <Text style={{fontSize: 30}}>{Responses[score]}</Text>
+                </View>
+                
+                <Text style={{fontSize: 30}}>I {getHelpValue(domain) ? "need" : "don't need"} more help.</Text>
+                <Text style={{fontSize: 30}}>{pluralItems(thisAssessment.questions[domain], domain)}</Text>
+                
+                <FlatList
+                    data={thisAssessment.questions[domain].actionItems}
+                    renderItem={
+                      (item) => {return (
+                        <Text style={{fontSize: 30}}>{item.item}</Text>
+                      )}
+                  }
+                />     
+                
+                </View>
+              </View>
             </View>
+            
           </Tab>
           <Tab label={'more about this'}>
               <SessionPrompt domain={domain}/>
@@ -79,15 +86,15 @@ const Session = () => {
         
       </View>        
         
-    </SafeAreaView>
+    </View>
   ) 
 }
 
 const sessionStyles = StyleSheet.create({
   body: {
+    flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    'justifyContent': 'flex-start',
     rowGap: 20    
   },
   response: {

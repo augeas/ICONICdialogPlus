@@ -4,15 +4,15 @@ import { Link } from 'expo-router';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";
+import { useAssesmentsStore, assessmentsToCSV } from "../data/assessment";
 import NewClientModal, {DeleteClientModal} from '../components/NewClientModal';
 import styles from '../components/Styles';
-
-import { decode } from 'html-entities';
 
 const App = () => {
   const [newClientModalVisible, setClientModalVisible] = useState(false);
   const [deletingClientID, setDeletingClientID] = useState(null);
   const clients = useClientStore((state) => state.clients);
+  const assessments = useAssesmentsStore((state) => state.assessments);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
   
   const dismissModal = () => setClientModalVisible(false);
@@ -55,12 +55,30 @@ const App = () => {
           renderItem={renderClient}
           keyExtractor={(item) => item.id}
         />
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => {setClientModalVisible(true)}}
-        >
-          <Text style={styles.buttonText}>New Service User</Text>
-        </Pressable>        
+        <View style={clientStyles.buttonContainer}>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => {setClientModalVisible(true)}}
+          >
+            <Text style={styles.buttonText}>New Service User</Text>
+          </Pressable>
+        </View>
+        <View style={clientStyles.buttonContainer}>
+          <Link
+            style={[styles.button, styles.buttonOpen]}
+            href={
+              'data:text/plain,'+encodeURIComponent(
+                assessmentsToCSV(
+                  clients.map((cl)=>{return {client: cl.name, assessments: assessments[cl.id]}})
+                )
+              )
+            }
+            download='all_service_user_sessions.csv'
+            target='_blank' 
+          >
+            <Text style={styles.buttonText}>Export All Sessions</Text>
+          </Link>
+        </View>        
       </View>
           
       <NewClientModal isVisible={newClientModalVisible} dismiss={dismissModal}>   
@@ -70,17 +88,17 @@ const App = () => {
         isVisible={deletingClientID != null}
         dismiss={()=>{setDeletingClientID(null)}}
         clientId={deletingClientID}
-
       >
       </DeleteClientModal>
       
-
     </View>
   );
 };
 
 const clientStyles = StyleSheet.create({
-
+  buttonContainer: {
+    padding: 10
+  },
   clientView: {
     flex: 1,
     padding: 5,    
@@ -98,6 +116,5 @@ const clientStyles = StyleSheet.create({
     backgroundColor: 'lightgrey'  
   },
 });
-
 
 export default App;

@@ -76,10 +76,10 @@ const ClientPage = () => {
     
     {clientAssessments.length > 0  &&  <View>
       <Link style = {[styles.button, styles.buttonOpen, styles.buttonText]}
-        href={'data:text/plain,'+encodeURIComponent(assessmentsToCSV(clientName, assessments[id]))}
+        href={'data:text/plain,'+encodeURIComponent(assessmentsToCSV([{client: clientName, assessments: assessments[id]}]))}
         download={CSVfname(clientName)}
         target="_blank" 
-      >Export</Link>
+      >Export Sessions</Link>
     </View> }
     
       <DeleteSessionModal

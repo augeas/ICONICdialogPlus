@@ -120,7 +120,7 @@ function serQuestion([domain, q]) {
   const name = Domains[domain];
   return new Map([
     [name+'_score', Responses[q.score]],
-    [name+'_help', q.moreHelp]
+    [name+'_help', q.moreHelp ? 'Yes' : 'No']
   ]);
 }
 
@@ -128,8 +128,7 @@ function serActionItems([domain, q]) {
   const name = Domains[domain];
   return new Map([
     [name+'_action_items', q.actionItems ? q.actionItems.join('\n') : ''] 
-  ]);
-  
+  ]);  
 }
 
 function flatten(col) {
@@ -142,11 +141,20 @@ function serAssessment(assess: Assessment) {
   return new Map([['date', assess.timeStamp], ...flatten(questions), ...flatten(items)]);
 }
 
-export function assessmentsToCSV(client: String, assessments: Assessment[]): String {
-  const base = {service_user: client}
-  const rows = assessments ? assessments.map(serAssessment) : [];
+type ClientAssessments = {
+  client: String;
+  assessments: Assessment[];
+};
+
+function serClient(ca: ClientAssessments): Object[] {
+  const base = {service_user: ca.client}
+  const rows = ca.assessments ? ca.assessments.map(serAssessment) : [];
+  return rows.map((e)=>({...base, ...Object.fromEntries(e)}))
+}
+
+export function assessmentsToCSV(cas: ClientAssessments[]): String {
   return jsonToCSV(JSON.stringify(
-    rows.map((e)=>({...base, ...Object.fromEntries(e)}))
+    cas.map(serClient).flat()
   ));
 }
 

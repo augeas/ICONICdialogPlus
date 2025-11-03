@@ -142,14 +142,12 @@ const NewSession = () => {
             
         <View style={{flex: 6}}>
 
-                
-        
         <TabGroup>
           <Tab label={'Question'}><View style={{flex: 4, flexDirection: 'row', alignItems: 'flexStart'}}>
         
          <View style={{distributeConent: 'center'}}><DomainImage domain={domain}/></View>
         
-          <View style={styles.centeredView}>
+          <View >
             
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
@@ -165,8 +163,7 @@ const NewSession = () => {
            </View>          
           
           </View></Tab>
-          
-          
+                    
           <Tab label={'More Information'}>
                 <View style={{flex: 2}}>
                   

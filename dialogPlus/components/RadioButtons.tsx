@@ -1,8 +1,5 @@
 
-import React, {useState} from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, Pressable, View } from 'react-native';
-
-import styles from './Styles';
+import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 type radioProps = {
   value: string,

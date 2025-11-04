@@ -1,5 +1,5 @@
 
-import { Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Text } from 'react-native';
 
 import DialogModal from './DialogModal'
 import { useAssesmentsStore } from "../data/assessment";

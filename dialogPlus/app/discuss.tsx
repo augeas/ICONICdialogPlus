@@ -5,10 +5,9 @@ import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import DomainButtons from '../components/DomainButtons';
-import { Client, useClientStore } from '../data/client';
-import { Steps, StepNames, StepPrompts } from '../data/discuss';
+import { Steps, StepNames } from '../data/discuss';
 import StepImages  from '../components/DiscussStepImage';
-import { Assessment, Domains, DomainKey, DomainTitles, questionItemCount, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Assessment, DomainKey, DomainTitles, questionItemCount, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
@@ -58,8 +57,7 @@ function Discuss() {
   const thisTs = ts ? new Date(parseInt(ts)) : null;
   const assessID = thisTs.toISOString();
   const assessments = useAssesmentsStore((state) => state.assessments); 
-  const clientAssessments = assessments[id] ? assessments[id] : [];
-  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == assessID);
+  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp === assessID);
   const firstMoreHelp = Object.keys(lastAssessment.questions).find(
     (i: number) => lastAssessment.questions[i].moreHelp
   );
@@ -75,7 +73,7 @@ function Discuss() {
   };  
   
     const disabledDomains = (i: DomainKey) => {
-       return i == domain | (lastAssessment.questions[i] ? !lastAssessment.questions[i].moreHelp : true);
+       return i === domain | (lastAssessment.questions[i] ? !lastAssessment.questions[i].moreHelp : true);
     };  
     
   const score = getScaleValue(domain);    
@@ -142,7 +140,7 @@ function Discuss() {
                   />
                 </View>
                 <View style={{flex: 1,  flexDirection: 'column'}}>{
-                    step==Steps.Actions ? <Actions
+                    step == Steps.Actions ? <Actions
                       assess={lastAssessment}
                       domain={domain}
                       onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
@@ -170,9 +168,7 @@ function Discuss() {
         
       </View>
 
-      
-    </View>
-      
+    </View>      
   )
 }
 

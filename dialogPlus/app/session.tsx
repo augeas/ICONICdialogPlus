@@ -1,9 +1,9 @@
 
 import React, {useState} from 'react';
-import { useLocalSearchParams, router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, pluralItems, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Assessment, Domains, DomainKey, DomainPrompts, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
@@ -17,7 +17,7 @@ const Session = () => {
   const { ts } = useLocalSearchParams<{ ts: string }>();
   const thisTs = ts ? new Date(parseInt(ts)) : null;
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const thisAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
+  const thisAssessment = assessments[id].find((a: Assessment) => a.timeStamp === thisTs.toISOString());
   
   const getScaleValue = (i: DomainKey) => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].score : null);

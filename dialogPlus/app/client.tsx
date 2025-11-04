@@ -1,12 +1,12 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams, useRouter, Stack } from "expo-router";
-import { FlatList, StyleSheet, Text, Pressable,  TouchableOpacity, View } from 'react-native';
+import { Link, useLocalSearchParams, Stack } from "expo-router";
+import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-import { Client, useClientStore } from "../data/client";
+import { useClientStore } from "../data/client";
 import { pluralSessions, Assessment, useAssesmentsStore, assessmentsToCSV } from "../data/assessment";
 import SessionDate from '../components/SessionDate';
 import DeleteSessionModal from '../components/SessionModal';
@@ -22,12 +22,11 @@ import styles from '../components/Styles';
   }
 
 const ClientPage = () => {
-  const router = useRouter();
   const [deletingSessionID, setDeletingSessionID] = useState(null);
   const clients = useClientStore((state) => state.clients);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
   const { id } = useLocalSearchParams<{ id: string }>();
-  const clientName = clientsHydrated ? clients.find((client) => client.id == id).name : null;
+  const clientName = clientsHydrated ? clients.find((client) => client.id === id).name : null;
   const assessments = useAssesmentsStore((state) => state.assessments);
   const assessmentsHydrated = useAssesmentsStore(state => state._hasHydrated);
   

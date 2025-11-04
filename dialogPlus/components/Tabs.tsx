@@ -22,7 +22,7 @@ export function TabGroup({children}) {
             horizontal={true}
             renderItem={
                 (tab) => {
-                    const selected = tab.index == index;
+                    const selected = tab.index === index;
                     const thisTabStyle = selected ? tabStyles.selectedTab : tabStyles.unselectedTab;
                     const thisTextStyle = selected ? tabStyles.selectedText : tabStyles.unselectedText;
                     return (

@@ -1,6 +1,6 @@
 
 
-import { StyleSheet, View } from 'react-native';
+import {  View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 type smileyProps = {
@@ -19,7 +19,6 @@ function Smiley({ code, size, colour}: smileyProps ) {
           </View>
         </View>
     )
-    
 }
 
 export default Smiley;

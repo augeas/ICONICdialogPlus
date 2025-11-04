@@ -1,6 +1,6 @@
 
-import React, {useState} from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React  from 'react';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 type FadingProps = {
   value: string;
@@ -10,14 +10,12 @@ type FadingProps = {
 
 export const FadingButton = ({value, faded, onClick}: FadingProps) => {
   return (
-
       <Pressable
         style={[fadingStyles.fadingButton, faded ? fadingStyles.faded : fadingStyles.unfaded]}
         onPress={() => {if (!faded) onClick()}}
       >
         <Text style={faded ? fadingStyles.fadedText : fadingStyles.unfadedText}>{value}</Text>
       </Pressable>
-
   )
 }
 

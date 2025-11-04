@@ -1,5 +1,5 @@
 
-import { FlatList, View, Image } from 'react-native';
+import { FlatList, Image } from 'react-native';
 
 import { Domains, DomainKey } from "../data/assessment";
 

@@ -90,7 +90,7 @@ export const SmileyScaleColour: Record<number, string> =
 type Question = {
  score: number;
  moreHelp?: boolean;
- actionItems?: String[];
+ actionItems?: string[];
 }
 
 export function questionItemCount(q: Question): number {
@@ -110,10 +110,6 @@ export const pluralItems = (q: Question, k: DomainKey) => {
 type Assessment = {
   timeStamp: Date;
   questions: Record<DomainKey, Question>;
-}
-
-function assessmentMaxItems(a: assessment): number {
-    return Math.sum(Object.entries(a.questions).map(([k, q])=>(questionItemCount(q))));
 }
 
 function serQuestion([domain, q]) {
@@ -180,7 +176,7 @@ export const useAssesmentsStore = create<assessmentsState>() (
         set((state) => ({
           assessments: {
             ...state.assessments, [clientId]: state.assessments[clientId].filter(
-              (assess: Assessment) => assess.timeStamp != assessmentId
+              (assess: Assessment) => assess.timeStamp !== assessmentId
             )
           }
         })
@@ -189,7 +185,7 @@ export const useAssesmentsStore = create<assessmentsState>() (
         set((state) => ({
           assessments: {
             ...state.assessments, [clientId]: state.assessments[clientId].map(
-                (a: Assessment) => a.timeStamp == assess.timeStamp ? assess : a
+                (a: Assessment) => a.timeStamp === assess.timeStamp ? assess : a
             )
           }
         })

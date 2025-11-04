@@ -17,7 +17,7 @@ type ModalProps = {
 const DeleteItemModal = ({isVisible = false, clientID, assessmentID, domain,  dismiss = () => {}, index}: ModalProps) => {
   const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const thisAssessment = assessments[clientID].find((a: Assessment) => a.timeStamp == assessmentID);
+  const thisAssessment = assessments[clientID].find((a: Assessment) => a.timeStamp === assessmentID);
   const thisQuestion = thisAssessment.questions[domain];
   const theseItems =  thisQuestion.actionItems ? thisQuestion.actionItems : [];
     
@@ -50,7 +50,7 @@ const DeleteItemModal = ({isVisible = false, clientID, assessmentID, domain,  di
 const ActionItemModal = ({isVisible = false, clientID, assessmentID, domain,  dismiss = () => {}}: ModalProps) => {
   const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const thisAssessment = assessments[clientID].find((a: Assessment) => a.timeStamp == assessmentID);
+  const thisAssessment = assessments[clientID].find((a: Assessment) => a.timeStamp === assessmentID);
 
   const {
     control,

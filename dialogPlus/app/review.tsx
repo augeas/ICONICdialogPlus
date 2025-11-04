@@ -13,27 +13,23 @@ import SessionPrompt from '../components/SessionPrompt'
 import Smiley from '../components/Smiley';
 import styles from '../components/Styles';
 
-function Score({assess, domain}) {
-  const score = assess.questions[domain] ? assess.questions[domain].score : null;
-  const code = score ? SmileyScaleIcon[score] : null;
-  const colour = score ? SmileyScaleColour[score] : null;
-  if (code)
-    return (
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
-        <Smiley code={code} size={60} colour={colour} />
-        <Text style={reviewStyles.scoreText}>{Responses[score]}</Text>
-      </View>
-    );
-  else
-    return (<View></View>);
-}
 
 function DateScore({domain, session, ts, label}) {
+  const score = session ? (session.questions[domain] ? session.questions[domain].score : null) : null;
+  const code = score ? SmileyScaleIcon[score] : null;
+  const colour = score ? SmileyScaleColour[score] : null;
   return (session ? (session.questions[domain] ?
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <Text style={reviewStyles.scoreText}>{label}</Text>
-      <SessionDate timeStamp={ts}/>
-      <Score assess={session} domain={domain}></Score>
+    <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
+        <Text style={reviewStyles.scoreText}>{label}</Text>
+      </View>
+      <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', padding: 10}}>
+        <SessionDate timeStamp={ts}/>
+        <Smiley code={code} size={60} colour={colour} />
+      </View>
+      <View  style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <Text style={reviewStyles.scoreText}>{Responses[score]}</Text>
+      </View>
     </View>
     : <View></View>) : <View></View>
   );
@@ -86,15 +82,15 @@ const Review = () => {
         
         <Tab label={'how you answered'}><View>
         
-              <View style={{flexDirection: 'row', justifyContent: 'flex-start', padding: 10}}>
+              <View style={{flex: 2, flexDirection: 'row', justifyContent: 'flex-start', padding: 10}}>
               
-              <View style={{flex: 1, justifyContent: 'center'}}>
-                <DomainImage domain={domain}/>
-            </View>
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                  <DomainImage domain={domain}/>
+              </View>
             
-            <View style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 10}}>
+            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 10}}>
            
-           
+        
            
        {previousAssessments.length ?
          <View>
@@ -115,11 +111,11 @@ const Review = () => {
         : <Text style={reviewStyles.scoreText}>(No previous sessions to compare.)</Text>
        } 
       
-        
-          <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
-          <View>
-          <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
-          <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
+           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
+      
+          <View style={{flex: 1, alignItems: 'stretch'}}>
+            <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
+            <DateScore domain={domain} session={compareSession} ts={reviewTs} label={"Previously"}></DateScore>
           </View>
           
           </View> 
@@ -169,12 +165,10 @@ const reviewStyles = StyleSheet.create({
     borderWidth: 4,
   },
   DomainTitle: {
-    alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 32,
   },
   scoreText: {
-    alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 20,
     padding: 10

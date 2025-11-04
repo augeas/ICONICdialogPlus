@@ -111,64 +111,56 @@ function Discuss() {
         />
       </View>
       
-    <View View style={{flex: 4, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
-            
-      <TabGroup>
-  
-        <Tab label={'Discuss'}><View style={{flex: 4, flexDirection: 'column', alignItems: 'flex-start'}}>
-
-            <View style={styles.centeredView}>
-              <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={discussStyles.scoreText}>{DomainTitles[domain]}</Text>
-                  <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
-                  <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
-            </View>        
-
-          <View style={{flex: 4, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
-      
-          <View style={{flex: 1}}>
-          <DomainImage domain={domain}/>
-          </View>
-          
-            <View style={{flex: 1, justifyContent: 'stretch'}}><RadioGroup
-              data={stageButtons}
-              onSelect={(i: number)=>{setStep(i)}}
-              selectedId={step}
-              row={false}
-            /></View>
-        
-          <View style={{flex: 1}}>
-          { step==Steps.Actions ? <Actions
-            assess={lastAssessment}
-            domain={domain}
-            onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
-            onCreate={()=>setNewItemModalVisible(true)}
-          /> : <StepImages step={step} /> }
-          </View>
-
-        </View>
-
-        </View>
-      </View></Tab>
-      
-        <Tab label={'More About This'}>
-            <View style={{flex: 4}}>
-            <SessionPrompt domain={domain}/>
+      <View style={{flex: 3}}>
+        <TabGroup>
+          <Tab label={'Discuss'}>
+            <View style={{flex: 3,  flexDirection: 'column'}}>
+            ` <View>
+                  <View style={{flex: 3, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center'}}>
+                      <Text style={discussStyles.scoreText}>{DomainTitles[domain]}</Text>
+                    </View>
+                    <View >
+                      <Smiley code={SmileyScaleIcon[score]} size={100} colour={SmileyScaleColour[score]} />
+                    </View>
+                    <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
+                      <Text style={discussStyles.scoreText}>{Responses[score]}</Text>
+                    </View>
+                  </View>
+              </View>
+              <View style={{flex: 3,  flexDirection: 'row'}}>
+                <View style={{flex: 1}}>
+                  <DomainImage domain={domain}/>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'stretch'}}>
+                  <RadioGroup
+                    data={stageButtons}
+                    onSelect={(i: number)=>{setStep(i)}}
+                    selectedId={step}
+                    row={false}
+                  />
+                </View>
+                <View style={{flex: 2,  flexDirection: 'column'}}>
+              
+                </View>
+              </View>
             </View>
-        </Tab>
-      
-      </TabGroup>
-
-      <View style={styles.centeredView}>
+          </Tab>
+          <Tab label={'More About This'}>
+            <SessionPrompt domain={domain}/>
+          </Tab>
+        </TabGroup>
+        
+        <View style={styles.centeredView}>
             <Link
               href = {{pathname: '/client', params: { id: id }}}
-              style = {[styles.centeredView, styles.button, styles.buttonOpen, styles.buttonText]}>
-              Finish
+              style = {[styles.centeredView, styles.button, styles.buttonOpen, styles.buttonText]}
+            >
+              <Text>Finish</Text>
             </Link>
-      </View>      
-      
+      </View>   
+        
       </View>
-      
 
       
     </View>

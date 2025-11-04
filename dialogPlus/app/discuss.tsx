@@ -140,8 +140,14 @@ function Discuss() {
                     row={false}
                   />
                 </View>
-                <View style={{flex: 2,  flexDirection: 'column'}}>
-              
+                <View style={{flex: 1,  flexDirection: 'column'}}>{
+                    step==Steps.Actions ? <Actions
+                      assess={lastAssessment}
+                      domain={domain}
+                      onDelete={(i: number)=>{setItemIndex(i); setDeleteItemModalVisible(true);}}
+                      onCreate={()=>setNewItemModalVisible(true)}
+                    /> : <StepImages step={step} />
+                }
                 </View>
               </View>
             </View>

@@ -1,10 +1,9 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
-import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
+import { Link, useLocalSearchParams  } from "expo-router";
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { Client, useClientStore } from "../data/client";
-import { Assessment, Domains, DomainKey, DomainTitles, pluralSession, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Assessment, Domains, DomainTitles, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import SessionDate from '../components/SessionDate';
 import DomainButtons from '../components/DomainButtons';
@@ -36,16 +35,12 @@ function DateScore({domain, session, ts, label}) {
 }
 
 const Review = () => {
-  const router = useRouter();
   const [domain, setDomain] = useState(Domains.Mental);
   const [reviewTs, setReviewTs] = useState('');
-  const clients = useClientStore((state) => state.clients);
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ts } = useLocalSearchParams<{ ts: string }>();
   const thisTs = ts ? new Date(parseInt(ts)) : null;
-  const clientName = clients.find((client) => client.id == id).name;
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const assessmentsHydrated = useAssesmentsStore(state => state._hasHydrated);
   const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
   const previousAssessments = assessments[id].map(
     (a: Assessment) => a.timeStamp

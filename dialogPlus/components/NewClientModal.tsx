@@ -1,5 +1,5 @@
 
-import { Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import { StyleSheet, Text, TextInput, View} from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 
 import { useClientStore } from "../data/client";
@@ -21,7 +21,6 @@ const NewClientModal = ({isVisible = false, dismiss = () => {}}: ModalProps) => 
       clientName: ""
     },
   });
-  
   
   const addClient = useClientStore((state) => state.addClient);
   const onSubmit = (data) => { addClient(data.clientName); dismiss(); }
@@ -57,7 +56,7 @@ type DeleteModalProps = ModalProps & {clientId: string}
 const DeleteClientModal = ({isVisible = false, dismiss = () => {}, clientId}: DeleteModalProps) => {
   const clients = useClientStore((state) => state.clients);
   const dropClient = useClientStore((state) => state.dropClient);
-  const name = clientId ? clients.find((client) => client.id == clientId).name : null
+  const name = clientId ? clients.find((client) => client.id === clientId).name : null
   
   return (
     <DialogModal

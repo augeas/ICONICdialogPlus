@@ -1,8 +1,8 @@
 
-import { Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import { StyleSheet, Text, TextInput, View} from 'react-native';
 import { useForm, Controller } from "react-hook-form"
 
-import { Assessment, Domains, DomainKey, DomainTitles, useAssesmentsStore } from "../data/assessment";
+import { Assessment, DomainTitles, useAssesmentsStore } from "../data/assessment";
 import DialogModal from './DialogModal'
 
 type ModalProps = {

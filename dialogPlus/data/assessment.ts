@@ -1,6 +1,6 @@
 
 import { create } from 'zustand';
-import { persist, subscribeWithSelector, createJSONStorage } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import { jsonToCSV } from 'react-native-csv'
 
 export const pluralSessions = (nsessions: number) => {

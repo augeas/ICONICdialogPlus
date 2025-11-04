@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, Pressable, View} from 'react-native';
+import {FlatList, StyleSheet, Text, Pressable, View} from 'react-native';
 import { Link,  Stack } from 'expo-router';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 

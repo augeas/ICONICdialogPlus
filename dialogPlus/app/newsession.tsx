@@ -1,11 +1,9 @@
 
 import React, {useState, useEffect} from 'react';
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { SafeAreaView, StyleSheet, Text, Pressable, View, Image } from 'react-native';
-import { decode } from 'html-entities';
-import Entypo from '@expo/vector-icons/Entypo';
+import { Text, View  } from 'react-native';
 
-import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Question, Responses, IconScale, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import { FadingButton} from '../components/Fading';
@@ -15,16 +13,6 @@ import DialogModal from '../components/DialogModal'
 import SessionPrompt from '../components/SessionPrompt'
 import styles from '../components/Styles';
 import Smiley from '../components/Smiley';
-
-type responseProps = {
-  code: number;
-};
-
-const ResponseText = ({code}: responseProps) => {
-   return (
-     <Text style={{fontSize: 16}}>{Responses[code]}</Text>  
-   )
-}
 
 const scaleButtons: RadioItem[] = Object.entries(Responses).map(
   ([key, val]) => {

@@ -12,7 +12,6 @@ import SessionPrompt from '../components/SessionPrompt'
 import Smiley from '../components/Smiley';
 import styles from '../components/Styles';
 
-
 function DateScore({domain, session, ts, label}) {
   const score = session ? (session.questions[domain] ? session.questions[domain].score : null) : null;
   const code = score ? SmileyScaleIcon[score] : null;
@@ -41,13 +40,13 @@ const Review = () => {
   const { ts } = useLocalSearchParams<{ ts: string }>();
   const thisTs = ts ? new Date(parseInt(ts)) : null;
   const assessments = useAssesmentsStore((state) => state.assessments);
-  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString());
+  const lastAssessment = assessments[id].find((a: Assessment) => a.timeStamp === thisTs.toISOString());
   const previousAssessments = assessments[id].map(
     (a: Assessment) => a.timeStamp
-  ).filter((ts) => ts != thisTs.toISOString());
+  ).filter((ts) => ts !== thisTs.toISOString());
   const isChecked = (i: number) => {return false;};
     
-  const compareSession = reviewTs ? assessments[id].find((a: Assessment) => a.timeStamp == reviewTs) : null;
+  const compareSession = reviewTs ? assessments[id].find((a: Assessment) => a.timeStamp === reviewTs) : null;
 
   const gotResponse = (i: number) => {
     const lastResp = lastAssessment ? (lastAssessment.questions[i] ? true : false) : false;
@@ -84,9 +83,7 @@ const Review = () => {
               </View>
             
             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 10}}>
-           
-        
-           
+
        {previousAssessments.length ?
          <View>
          <Text style={reviewStyles.scoreText}>Choose a previous session to compare:</Text>
@@ -95,7 +92,7 @@ const Review = () => {
             horizontal={true}
             renderItem={
               ({item}) => <View
-                style={item == reviewTs ? reviewStyles.selectedDateContainer : reviewStyles.dateContainer}
+                style={item === reviewTs ? reviewStyles.selectedDateContainer : reviewStyles.dateContainer}
               >
                 <SessionDate timeStamp={item} onPress={()=>setReviewTs(item)}/>
               </View>
@@ -117,8 +114,6 @@ const Review = () => {
           
           </View>
 
-          
-          
         </View></Tab>
         
         <Tab label={'more about this'}>

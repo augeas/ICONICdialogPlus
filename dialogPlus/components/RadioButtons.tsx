@@ -38,22 +38,25 @@ type RadioGroupProps = {
   selectedId?: number;
   onSelect: (number) => void;
   row: boolean;
+  stretch?: boolean;
 }
 
-export const RadioGroup = ({data, selectedId, onSelect=(i: number) => {}, row=true}: RadioGroupProps) => {
+export const RadioGroup = ({data, selectedId, onSelect=(i: number) => {}, row=true, stretch=false}: RadioGroupProps) => {
   return (
     <FlatList
       data={data}
       renderItem={
         ({item}) =>
            <View style={radioStyles.radioGroup}>
-             <RadioButton
-               value={String(item.value)}
-               id={item.id} selected={selectedId==item.id}
-               onClick={() => onSelect(item.id)}
-             >
-              {item.label}
-             </RadioButton>
+            <View style={stretch ? radioStyles.stretchGroup : radioStyles.noStretch }>
+              <RadioButton
+                value={String(item.value)}
+                id={item.id} selected={selectedId==item.id}
+                onClick={() => onSelect(item.id)}
+              >
+                {item.label}
+              </RadioButton>
+            </View>
            </View>
       }
       horizontal={row}
@@ -63,6 +66,12 @@ export const RadioGroup = ({data, selectedId, onSelect=(i: number) => {}, row=tr
 }
 
 const radioStyles = StyleSheet.create({
+  stretchGroup: {
+    flex:1,
+    justifyContent: 'stretch'
+  },
+  noStretch: {
+  },
   radioGroup: {
     flex: 1,
     flexDirection: 'row',
@@ -73,6 +82,7 @@ const radioStyles = StyleSheet.create({
     marginTop: 22,    
   },
   radioButton: {
+    flex: 1,
     borderRadius: 20,
     borderWidth: 0,
     borderColour: 'black',

@@ -138,6 +138,7 @@ function Discuss() {
                     onSelect={(i: number)=>{setStep(i)}}
                     selectedId={step}
                     row={false}
+                    stretch={true}
                   />
                 </View>
                 <View style={{flex: 1,  flexDirection: 'column'}}>{
@@ -161,6 +162,7 @@ function Discuss() {
             <Link
               href = {{pathname: '/client', params: { id: id }}}
               style = {[styles.centeredView, styles.button, styles.buttonOpen, styles.buttonText]}
+              dismissTo
             >
               <Text>Finish</Text>
             </Link>

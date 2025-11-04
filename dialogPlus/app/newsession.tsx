@@ -39,7 +39,7 @@ const NewSession = () => {
   const addAssessment = useAssesmentsStore((state) => state.addAssessment);
   const updateAssessment = useAssesmentsStore((state) => state.updateAssessment);
   const thisAssessment = ts ? assessments[id].find((a: Assessment) => a.timeStamp == thisTs.toISOString()) : {};
-  const [theseQuestions, setTheseQuestions] = useState(ts ? thisAssessment.questions : {});
+  const [theseQuestions, setTheseQuestions] = useState(ts ? (thisAssessment ? thisAssessment.questions : {}) : {});
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {

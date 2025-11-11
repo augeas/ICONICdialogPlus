@@ -48,18 +48,34 @@ export const DomainTitles: Record<DomainKey, string> = {
 export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Mental]: 'with your mental health',
   [Domains.Physical]: 'with your physical health',
-  [Domains.Home]: 'with where you live',
-  [Domains.Work]: 'with your work',
+  [Domains.Home]: 'about your home',
+  [Domains.Work]: 'with your work or college',
   [Domains.Activities]: 'with your day activities',
   [Domains.Family]: 'about your relationships with your family',
   [Domains.Friends]: 'about your friendships',
-  [Domains.Safety]: 'about feeling safe in your home or outside',
+  [Domains.Safety]: 'about how safe you feel',
   [Domains.Independence]: 'about your independence',
   [Domains.Communication]: 'with the way you communicate\nwith other people',
   [Domains.Medication]: 'with your medication',
-  [Domains.Support]: 'with the support that you get\nfrom care workers',
-  [Domains.Meetings]: 'about your meetings with your care team'
+  [Domains.Support]: 'with the support that you get\nfrom your carers',
+  [Domains.Meetings]: 'about your meetings with\nhealth professionals and social workers'
 };
+
+export const DomainImageURI: Record<DomainKey, Object> = {
+  [Domains.Mental]: [require('../assets/images/domains/mental_health.png')],
+  [Domains.Physical]: [require('../assets/images/domains/physical_health.png')],
+  [Domains.Work]: [require('../assets/images/domains/work.png')],
+  [Domains.Activities]: [require('../assets/images/domains/day_activities.png')],  
+  [Domains.Home]: [require('../assets/images/domains/home.png')],
+  [Domains.Family]: [require('../assets/images/domains/family.png')],
+  [Domains.Friends]: [require('../assets/images/domains/friends.png')],
+  [Domains.Safety]: [require('../assets/images/domains/safety.png')],
+  [Domains.Independence]: [require('../assets/images/domains/independence.png')],
+  [Domains.Communication]: [require('../assets/images/domains/communication.png')],
+  [Domains.Medication]: [require('../assets/images/domains/medication.png')],
+  [Domains.Support]: [require('../assets/images/domains/support.png')],
+  [Domains.Meetings]: [require('../assets/images/domains/care_team.png')]
+}
 
 export const Responses: Record<number, string> = {
   1: 'Happy',

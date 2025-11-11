@@ -22,8 +22,7 @@ export const QuestionPrompts: Record<DomainKey, string[]> = {
     'This question is asking you about your job (if you have one) or your college (if you go).'
   ],
   [Domains.Family]: [
-    'This question is asking about how how you feel about your family.',
-    'This could mean relationships with your children and your unpaid carers.'    
+    'This question is asking about how you feel about your family.'
   ],
   [Domains.Friends]: [
     'This question is asking you about the relationships you have with:',

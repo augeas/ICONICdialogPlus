@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, Pressable, View} from 'react-native';
-import { Link,  Stack } from 'expo-router';
+import { Link  } from 'expo-router';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";
@@ -20,7 +20,6 @@ const App = () => {
  const renderClient = ({item}: {item: Client}) => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-    <Stack.Screen options={{ title: 'Dialog+' }} />
       <Link asChild
           style={clientStyles.clientView}
           href={{

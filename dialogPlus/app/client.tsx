@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams, Stack } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 
@@ -30,13 +30,12 @@ const ClientPage = () => {
   const assessments = useAssesmentsStore((state) => state.assessments);
   const assessmentsHydrated = useAssesmentsStore(state => state._hasHydrated);
   
-  clientAssessments = assessments[id] ? assessments[id].map(
+  const clientAssessments = assessments[id] ? assessments[id].map(
     (a: Assessment)=>a.timeStamp
   ) : [];
   
   return (
     <View style={styles.centeredView}>
-     <Stack.Screen options={{ title: 'service user' }} />
       <Text style={styles.heading}>
         {(clientsHydrated && assessmentsHydrated) ? 
           pluralSessions(clientAssessments.length) + clientName : '(Waiting for sessions...)'
@@ -49,7 +48,7 @@ const ClientPage = () => {
         contentContainerStyle={sessionListStyles.sessionContainer}
         renderItem={
          ({item}) => <View style={sessionListStyles.sessionItem}>
-         <Link href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
+         <Link push href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
          >
             <SessionDate timeStamp={item}/>
           </Link>

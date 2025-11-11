@@ -48,9 +48,12 @@ const ClientPage = () => {
         contentContainerStyle={sessionListStyles.sessionContainer}
         renderItem={
          ({item}) => <View style={sessionListStyles.sessionItem}>
-         <Link push href={{pathname: '/session', params: {id: id, ts: new Date(item).getTime()}}}
+         <Link
+          push
+          asChild
+          href={{pathname: '/prevsession', params: {id: id, ts: new Date(item).getTime()}}}
          >
-            <SessionDate timeStamp={item}/>
+            <Pressable><SessionDate timeStamp={item}/></Pressable>
           </Link>
           <Pressable onPress={() => {setDeletingSessionID(item)}}>
             <MaterialCommunityIcons name={'trash-can-outline'} size={24} color={'black'} />

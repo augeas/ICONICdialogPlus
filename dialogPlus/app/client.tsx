@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
 
 
@@ -12,16 +12,21 @@ import SessionDate from '../components/SessionDate';
 import DeleteSessionModal from '../components/SessionModal';
 import styles from '../components/Styles';
 
-  function CSVfname(name: string) {
-    const [rawDate, rawTime] = new Date().toISOString().split('T')
-    return [
-      ...name.split(),
-      ...rawDate.split('-'), 
-      ...rawTime.split('.')[0].split(':')
-    ].join('_')+'.csv';
-  }
+function CSVfname(name: string) {
+  const [rawDate, rawTime] = new Date().toISOString().split('T')
+  return [
+    ...name.split(),
+    ...rawDate.split('-'), 
+    ...rawTime.split('.')[0].split(':')
+  ].join('_')+'.csv';
+}
+
+function sessionTs(sess: string) {
+  return new Date(sess).getTime()
+}
 
 const ClientPage = () => {
+  const router = useRouter();
   const [deletingSessionID, setDeletingSessionID] = useState(null);
   const clients = useClientStore((state) => state.clients);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
@@ -48,13 +53,10 @@ const ClientPage = () => {
         contentContainerStyle={sessionListStyles.sessionContainer}
         renderItem={
          ({item}) => <View style={sessionListStyles.sessionItem}>
-         <Link
-          push
-          asChild
-          href={{pathname: '/prevsession', params: {id: id, ts: new Date(item).getTime()}}}
-         >
-            <Pressable><SessionDate timeStamp={item}/></Pressable>
-          </Link>
+            <SessionDate
+              timeStamp={item}
+              onPress={()=>{router.push({pathname: '/prevsession', params: {id: id, ts: sessionTs(item)}})}}
+          />
           <Pressable onPress={() => {setDeletingSessionID(item)}}>
             <MaterialCommunityIcons name={'trash-can-outline'} size={24} color={'black'} />
           </Pressable>

@@ -12,7 +12,7 @@ import SessionPrompt from '../components/SessionPrompt'
 import styles from '../components/Styles';
 import Smiley from '../components/Smiley';
 
-const Session = () => {
+const PrevSession = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { ts } = useLocalSearchParams<{ ts: string }>();
   const thisTs = ts ? new Date(parseInt(ts)) : null;
@@ -104,4 +104,4 @@ const sessionStyles = StyleSheet.create({
   },  
 });
 
-export default Session;
+export default PrevSession;

@@ -42,7 +42,7 @@ const DeleteItemModal = ({isVisible = false, clientID, assessmentID, domain,  di
       }}
     >
       <Text style={{fontSize: 20}}>Are you sure you want to delete this Action Item?</Text>
-      <Text style={{fontSize: 20}}>"{theseItems[index]}"</Text>
+      <Text style={{fontSize: 20}}>&quot;{theseItems[index]}&quot;</Text>
     </DialogModal> 
   )
 }  

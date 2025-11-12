@@ -1,7 +1,7 @@
 
 import { FlatList, Image } from 'react-native';
 
-import { Domains, DomainKey, DomainImageURI } from "../data/assessment";
+import { DomainImageURI } from "../data/assessment";
 
 function DomainImage({domain}) {
   return (

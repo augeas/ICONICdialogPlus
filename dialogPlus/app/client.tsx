@@ -50,6 +50,7 @@ const ClientPage = () => {
          ({item}) => <View style={sessionListStyles.sessionItem}>
          <Link
           push
+          withAnchor
           asChild
           href={{pathname: '/prevsession', params: {id: id, ts: new Date(item).getTime()}}}
          >

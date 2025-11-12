@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, Pressable, View} from 'react-native';
-import { Link  } from 'expo-router';
+import { Link } from 'expo-router';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";

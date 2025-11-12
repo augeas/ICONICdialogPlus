@@ -42,6 +42,7 @@
       ],
       "expo-asset"
     ],
+    "scheme": "dialogplug",
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { Link, useLocalSearchParams  } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { Assessment, Domains, DomainTitles, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
@@ -59,7 +59,7 @@ const Review = () => {
     ).some((h) => h) : false;
 
   return (
-    <View>
+    <View style={{flex: 1}}><ScrollView>
      
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1}}>
@@ -142,7 +142,7 @@ const Review = () => {
       
       </View>
     
-    </View>
+    </ScrollView></View>
   )    
 }
 

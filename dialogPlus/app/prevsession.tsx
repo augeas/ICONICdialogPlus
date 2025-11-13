@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { Assessment, Domains, DomainKey, DomainPrompts, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
@@ -30,7 +30,7 @@ const PrevSession = () => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].moreHelp : null);
   };
   return (
-    <View>
+    <View style={{flex: 1}}><ScrollView>
 
       <View style={{flex: 5, flexDirection: 'row', justifyContent: 'flex-start'}}>
         <View style={{flex: 1}}>
@@ -86,7 +86,7 @@ const PrevSession = () => {
         
       </View>        
         
-    </View>
+    </ScrollView></View>
   ) 
 }
 

@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react';
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Text, View  } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
@@ -49,7 +49,7 @@ const NewSession = () => {
       router.push({pathname: './review', params: { id: id, ts: ts != undefined ? ts : thisTs.getTime() }});
     }
   }, [hasSubmitted, assessments]);
-  
+
   const getScaleValue = (i: DomainKey) => {
     return (theseQuestions[i] ? theseQuestions[i].score : null);
   };  
@@ -107,7 +107,7 @@ const NewSession = () => {
   );
   
   return (
-    <View>
+    <View style={{flex: 1}}><ScrollView>
       <DialogModal
         title={submitPrompt}
         submitText="Review"
@@ -129,7 +129,7 @@ const NewSession = () => {
         </View>
             
         <View style={{flex: 6}}>
-
+        
         <TabGroup>
           <Tab label={'Question'}><View style={{flex: 4, flexDirection: 'row', alignItems: 'flexStart'}}>
         
@@ -188,9 +188,9 @@ const NewSession = () => {
           
           </View>
                   
-      </View>        
+      </View>  
         
-    </View>
+    </ScrollView></View>
   ) 
 }
 

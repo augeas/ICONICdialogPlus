@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import { Link, useLocalSearchParams,} from "expo-router";
-import { FlatList, StyleSheet, Text, Pressable, View } from 'react-native';
+import { FlatList, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import DomainButtons from '../components/DomainButtons';
@@ -79,6 +79,7 @@ function Discuss() {
   const score = getScaleValue(domain);    
 
   return (
+    <View style={{flex: 1}}><ScrollView>
     <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>  
 
          <ActionItemModal
@@ -168,7 +169,9 @@ function Discuss() {
         
       </View>
 
-    </View>      
+    </View>
+    
+    </ScrollView></View>
   )
 }
 

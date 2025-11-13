@@ -139,7 +139,7 @@ const NewSession = () => {
             
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      
-            <View>
+            <View style={{flex: 1}}>
             <RadioGroup
               data={scaleButtons}
               onSelect={scaleClick}

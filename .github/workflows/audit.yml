@@ -16,7 +16,7 @@ jobs:
         run: npm ci
       - uses: oke-py/npm-audit-action@v3
         with:
-          working_directory: ./dialogPlus
+          working_directory: dialogPlus
           audit_level: moderate
           github_token: ${{ secrets.GITHUB_TOKEN }}
           issue_labels: vulnerability,test

@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: install dependencies
-        working_directory: ./dialogPlus
+        working-directory: ./dialogPlus
         run: npm ci
       - uses: oke-py/npm-audit-action@v3
         with:

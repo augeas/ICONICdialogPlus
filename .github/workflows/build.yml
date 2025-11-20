@@ -1,0 +1,51 @@
+name: build release
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: ./dialogPlus
+
+jobs:
+  scan:
+    name: npm audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: install dependencies
+        run: npm ci
+      - uses: oke-py/npm-audit-action@v3
+        with:
+          working_directory: ./dialogPlus
+          production_flag: true
+          json_flag: true
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_labels: vulnerability,test
+          dedupe_issues: true
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v6
+      with:
+        node-version: 24
+    - name: install dependencies
+      run: npm install
+    - name: build pwa
+      run: ./build_pwa
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'release.zip'
+        path: dist
+    - name: Upload Release
+      uses: ncipollo/release-action@v1.12.0
+      with:
+        artifacts: "release.zip"
+        token: ${{ secrets.GITHUB_TOKEN }}

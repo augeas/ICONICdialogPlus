@@ -44,12 +44,12 @@ jobs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
-        filename: 'release.zip'
+        filename: 'iconic_adialogplus_pwa.zip'
         directory: ./dialogPlus
         path: dist
     - name: Upload Release
       uses: ncipollo/release-action@v1.20.0
       with:
-        artifacts: "./dialogPlus/release.zip"
+        artifacts: "./dialogPlus/iconic_adialogplus_pwa.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: pwa

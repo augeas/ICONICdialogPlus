@@ -37,7 +37,7 @@ jobs:
     - name: install dependencies
       run: npm install
     - name: build pwa
-      run: ./build_pwa
+      run: ./build_pwa.sh
     - name: Archive Release
       uses: thedoctor0/zip-release@0.7.5
       with:

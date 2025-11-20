@@ -43,6 +43,7 @@ jobs:
       with:
         type: 'zip'
         filename: 'release.zip'
+        directory: ./dialogPlus
         path: dist
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0

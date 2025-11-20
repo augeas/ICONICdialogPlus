@@ -50,6 +50,6 @@ jobs:
     - name: Upload Release
       uses: ncipollo/release-action@v1.20.0
       with:
-        artifacts: "release.zip"
+        artifacts: "./dialogPlus/release.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: pwa

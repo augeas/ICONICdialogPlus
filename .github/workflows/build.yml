@@ -36,6 +36,7 @@ jobs:
           NAME: time
           LABEL: 'nap audit moderate vulns'
           STATUS: ${{ steps.moderate_vulns.outputs.moderate }}
+          BRANCH: main
           COLOR: 00EEFF
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

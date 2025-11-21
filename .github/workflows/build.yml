@@ -36,7 +36,7 @@ jobs:
         with:
           auth: ${{ secrets.BADGE_SECRET }}
           gistID: 5ab897e7e447a33d8d01dd678361c14c 
-          filename: dialogPlusBadges.json # Use test.svg if you want to use the SVG mode.
+          filename: dialogPlusBadges.json
           label: moderate
           message: &{{ steps.moderate_vulns.outputs.moderate}}
           color: yellow

@@ -1,9 +1,10 @@
 
 ### npm audit vulnerabilities:
 
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw?file=moderate.json)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw?file=high.json)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw?file=critical.json)
+![badge](https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/low.json)
+![badge](https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/moderate.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/high.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/critical.json)
 
 # ICONICdialogPlus
 

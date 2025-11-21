@@ -29,6 +29,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           issue_labels: vulnerability,test
           dedupe_issues: true
+      - run: echo ::set-output name=low ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.low)")
+        id: low_vulns
+      - name: Low Badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.BADGE_SECRET }}
+          gistID: 5ab897e7e447a33d8d01dd678361c14c 
+          filename: low.json
+          label: low
+          message: ${{ steps.low_vulns.outputs.low }}
+          color: yellow
       - run: echo ::set-output name=moderate ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.moderate)")
         id: moderate_vulns
       - name: Moderate Badge

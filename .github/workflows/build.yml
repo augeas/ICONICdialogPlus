@@ -32,13 +32,14 @@ jobs:
       - run: echo ::set-output name=moderate ::$(node -e "const audit={{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.moderate)")
         id: moderate_vulns
       - name: Moderate Badge
-        uses: RubbaBoy/BYOB@v1.3.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
-          NAME: moderate
-          LABEL: 'noderate'
-          STATUS: ${{ steps.moderate_vulns.outputs.moderate }}
-          COLOR: 00EEFF
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          auth: ${{ secrets.BADGE_SECRET }}
+          gistID: 5ab897e7e447a33d8d01dd678361c14c 
+          filename: dialogPlusBadges.json # Use test.svg if you want to use the SVG mode.
+          label: moderate
+          message: &{{ steps.moderate_vulns.outputs.moderate}}
+          color: yellow
   build:
     runs-on: ubuntu-latest
     permissions:

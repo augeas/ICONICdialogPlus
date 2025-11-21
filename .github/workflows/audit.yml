@@ -1,7 +1,6 @@
 name: generate badges
 
 on:
-  pull_request:
   push:
     branches:
       - main

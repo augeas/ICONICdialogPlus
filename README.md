@@ -1,4 +1,4 @@
-![](https://byob.yarr.is/RubbaBoy/Example/time)
+![](https://github.com/augeas/ICONICdialogPlus/moderate)
 
 # ICONICdialogPlus
 

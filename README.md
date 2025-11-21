@@ -1,4 +1,6 @@
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/dialogPlusModerate.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw?file=moderate.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw?file=high.json)
+
 
 # ICONICdialogPlus
 

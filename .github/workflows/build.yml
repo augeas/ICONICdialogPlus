@@ -36,10 +36,22 @@ jobs:
         with:
           auth: ${{ secrets.BADGE_SECRET }}
           gistID: 5ab897e7e447a33d8d01dd678361c14c 
-          filename: dialogPlusModerate.json
+          filename: moderate.json
           label: moderate
           message: ${{ steps.moderate_vulns.outputs.moderate }}
           color: yellow
+      - run: echo ::set-output name=hight ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.high)")
+        id: high_vulns
+      - name: High Badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.BADGE_SECRET }}
+          gistID: 5ab897e7e447a33d8d01dd678361c14c 
+          filename: high.json
+          label: high
+          message: ${{ steps.moderate_vulns.outputs.high }}
+          color: yellow
+
   build:
     runs-on: ubuntu-latest
     permissions:

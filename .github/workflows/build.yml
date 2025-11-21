@@ -40,7 +40,7 @@ jobs:
           label: moderate
           message: ${{ steps.moderate_vulns.outputs.moderate }}
           color: yellow
-      - run: echo ::set-output name=hight ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.high)")
+      - run: echo ::set-output name=high ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.high)")
         id: high_vulns
       - name: High Badge
         uses: schneegans/dynamic-badges-action@v1.7.0
@@ -49,8 +49,8 @@ jobs:
           gistID: 5ab897e7e447a33d8d01dd678361c14c 
           filename: high.json
           label: high
-          message: ${{ steps.moderate_vulns.outputs.high }}
-          color: yellow
+          message: ${{ steps.high_vulns.outputs.high }}
+          color: orange
 
   build:
     runs-on: ubuntu-latest

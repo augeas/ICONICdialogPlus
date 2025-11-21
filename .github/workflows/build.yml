@@ -38,7 +38,7 @@ jobs:
           gistID: 5ab897e7e447a33d8d01dd678361c14c 
           filename: dialogPlusBadges.json
           label: moderate
-          message: &{{ steps.moderate_vulns.outputs.moderate}}
+          message: &{{ steps.moderate_vulns.outputs.moderate }}
           color: yellow
   build:
     runs-on: ubuntu-latest

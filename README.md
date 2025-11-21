@@ -1,3 +1,5 @@
+![](https://byob.yarr.is/RubbaBoy/Example/time)
+
 # ICONICdialogPlus
 
 This is a proof-of-concept adaptation of [Dialog+](https://en.wikipedia.org/wiki/Dialog%2B) for

@@ -28,8 +28,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           issue_labels: vulnerability,test
           dedupe_issues: true
-      - run: echo ::set-output name=moderate ::$(node -e "const audit={{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabiliti
-es.moderate)")
+      - run: echo ::set-output name=moderate ::$(node -e "const audit={{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.moderate)")
           id: moderate_vulns
       - name: moderate-badge
         uses: tagdots/setup-badge-action@663d7a5382b8300caa4492de16e85aa7e4667ef0 # 1.0.3

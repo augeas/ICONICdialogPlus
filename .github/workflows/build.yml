@@ -60,7 +60,7 @@ jobs:
           gistID: 5ab897e7e447a33d8d01dd678361c14c 
           filename: critical.json
           label: crtitical
-          message: ${{ steps.critical.outputs.critical }}
+          message: ${{ steps.critical_vulns.outputs.critical }}
           color: red
 
 

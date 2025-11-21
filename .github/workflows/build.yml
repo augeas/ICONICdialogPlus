@@ -47,9 +47,11 @@ jobs:
         filename: 'iconic_adialogplus_pwa.zip'
         directory: ./dialogPlus
         path: dist
+    - run: echo ::set-output name=tag_name::pwa_$(date +%d%m%y%H%M%S)
+      id: set_tag_name
     - name: Upload Release
       uses: ncipollo/release-action@v1.20.0
       with:
         artifacts: "./dialogPlus/iconic_adialogplus_pwa.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: pwa
+        tag: ${{ steps.set_tag_name.outputs.tag_name }}

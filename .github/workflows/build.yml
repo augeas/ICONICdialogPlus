@@ -19,6 +19,7 @@ jobs:
       - name: install dependencies
         run: npm ci
       - uses: oke-py/npm-audit-action@v3
+        id: audit
         with:
           working_directory: ./dialogPlus
           production_flag: true
@@ -27,6 +28,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           issue_labels: vulnerability,test
           dedupe_issues: true
+      - name: moderate_vulns
+        run: echo ::set-output name=moderate ::$(node -e "const audit={{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.moderate)")
+      - name: Moderate Badge
+        uses: RubbaBoy/BYOB@v1.3.0
+        with:
+          NAME: time
+          LABEL: 'nap audit moderate vulns'
+          STATUS: ${{ steps.moderate_vulns.outputs.moderate }}
+          COLOR: 00EEFF
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
     permissions:

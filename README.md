@@ -1,10 +1,10 @@
 
 ### npm audit vulnerabilities:
 
-![badge](https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/low.json)
-![badge](https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/moderate.json)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/high.json)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/cacc8892d38c6685a043edd2010d245eb7d709a8/critical.json)
+![badge](https://img.shields.io/endpoint?https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/a9b23f4c21fc2ddadc37357c6c9a88bf150b13c0/low.json)
+![badge](https://img.shields.io/endpoint?https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/a9b23f4c21fc2ddadc37357c6c9a88bf150b13c0/moderate.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/a9b23f4c21fc2ddadc37357c6c9a88bf150b13c0/high.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/augeas/5ab897e7e447a33d8d01dd678361c14c/raw/a9b23f4c21fc2ddadc37357c6c9a88bf150b13c0/critical.json)
 
 # ICONICdialogPlus
 

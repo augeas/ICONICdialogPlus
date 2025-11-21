@@ -39,7 +39,7 @@ jobs:
           filename: low.json
           label: low
           message: ${{ steps.low_vulns.outputs.low }}
-          color: yellow
+          color: green
       - run: echo ::set-output name=moderate ::$(node -e "const audit=${{steps.audit.outputs.npm_audit}}; console.log(audit.metadata.vulnerabilities.moderate)")
         id: moderate_vulns
       - name: Moderate Badge

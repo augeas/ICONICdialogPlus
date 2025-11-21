@@ -36,5 +36,5 @@ jobs:
           badge-name: mod-vuln
           badge-url: https://raw.githubusercontent.com/tagdots/setup-badge/refs/heads/main/LICENSE
           label: npm-audit moderate vulns
-          message: {{ step.moderate_vulns.outputs.moderate }}
+          message: {{ steps.moderate_vulns.outputs.moderate }}
           message-color: FFA500

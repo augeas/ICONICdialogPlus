@@ -61,7 +61,7 @@ jobs:
           filename: critical.json
           label: crtitical
           message: ${{ steps.critical.outputs.critical }}
-          color: orange
+          color: red
 
 
   build:

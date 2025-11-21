@@ -13,6 +13,7 @@ data is kept in the browser's local storage via [Zustand](https://zustand.docs.p
 * If used in a clinical setting, *you* are responsible for:
     - Using a work-appropriate and secure device.
     - Storing or tranfering any exported data safely and appropriately.
+    - Deleting any data stored on the device, including uninstalling the app in a timely manner.
 * The warranty of this software, according to its [license](https://www.apache.org/licenses/LICENSE-2.0), is NONE WHATSOEVER.
 
 ## Getting Started:

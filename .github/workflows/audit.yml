@@ -1,10 +1,10 @@
-name: gnerate badges
+name: generate badges
 
 on:
   pull_request:
   push:
     branches:
-      - badges
+      - main
 
 defaults:
   run:

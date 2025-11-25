@@ -1,5 +1,6 @@
 
-import { Image, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
 
 import { QuestionPrompts, QuestionIncludes } from '../data/questionPrompts';
 import { QuestionImageURI, PromptImageURI } from '../data/promptImages';

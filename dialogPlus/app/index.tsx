@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, Pressable, View} from 'react-native';
+import { prefetch } from 'expo-image';
 import { Link } from 'expo-router';
+
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import { Client, useClientStore } from "../data/client";
-import { useAssesmentsStore, assessmentsToCSV } from "../data/assessment";
+import { useAssesmentsStore, assessmentsToCSV, DomainImageURI } from "../data/assessment";
+import { QuestionImageURI, PromptImageURI } from '../data/promptImages';
 import NewClientModal, {DeleteClientModal} from '../components/NewClientModal';
 import styles from '../components/Styles';
 
@@ -14,6 +17,9 @@ const App = () => {
   const clients = useClientStore((state) => state.clients);
   const assessments = useAssesmentsStore((state) => state.assessments);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
+  
+
+
   
   const dismissModal = () => setClientModalVisible(false);
 

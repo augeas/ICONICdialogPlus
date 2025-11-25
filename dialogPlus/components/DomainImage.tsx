@@ -1,6 +1,6 @@
 
-import { FlatList, Image } from 'react-native';
-
+import { FlatList } from 'react-native';
+import { Image } from 'expo-image';
 import { DomainImageURI } from "../data/assessment";
 
 function DomainImage({domain}) {

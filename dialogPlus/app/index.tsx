@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, Pressable, View} from 'react-native';
-import { prefetch } from 'expo-image';
+import React, {  useEffect, useState} from 'react';
+import {FlatList, Image, StyleSheet, Text, Pressable, View} from 'react-native';
 import { Link } from 'expo-router';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -11,18 +10,36 @@ import { QuestionImageURI, PromptImageURI } from '../data/promptImages';
 import NewClientModal, {DeleteClientModal} from '../components/NewClientModal';
 import styles from '../components/Styles';
 
+const flattenURIRecords = (records) => Object.values(records).reduce((acc, curr) => acc.concat(curr));
+
 const App = () => {
+  const [imgsPreloaded, setImgsPreloaded] = useState(false);
   const [newClientModalVisible, setClientModalVisible] = useState(false);
   const [deletingClientID, setDeletingClientID] = useState(null);
   const clients = useClientStore((state) => state.clients);
   const assessments = useAssesmentsStore((state) => state.assessments);
   const clientsHydrated = useClientStore(state => state._hasHydrated);
-  
-
-
-  
+    
   const dismissModal = () => setClientModalVisible(false);
 
+  const allTheImages = flattenURIRecords(
+    DomainImageURI
+  ).concat(
+    flattenURIRecords(PromptImageURI)
+  ).concat(Object.values(QuestionImageURI)).map(
+    (img) => img.uri
+  );  
+  
+  useEffect(() => {
+    if (! imgsPreloaded) {
+      Promise.all(allTheImages.map(Image.prefetch)).then((results) => {
+        // All the results are resolving to undefined, even when prefetch succeeds?!
+        setImgsPreloaded(true);
+        console.log('images preloaded');
+      }).catch(() => console.log('images NOT preloaded'));
+    }
+  }, [imgsPreloaded]);  
+  
  const renderClient = ({item}: {item: Client}) => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -45,7 +62,7 @@ const App = () => {
     </View>
   );   
  } 
-  
+        
   return (
     <View style={styles.centeredView}>
       <View>
@@ -84,7 +101,10 @@ const App = () => {
           >
             <Text style={styles.buttonText}>Export All Sessions</Text>
           </Link>
-        </View>        
+        </View>
+        <View>
+          { ! imgsPreloaded && <Text>(preloading images...)</Text> }
+        </View>
       </View>
           
       <NewClientModal isVisible={newClientModalVisible} dismiss={dismissModal}>   

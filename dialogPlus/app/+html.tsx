@@ -15,6 +15,9 @@ export default function Root({ children }: PropsWithChildren) {
 
         {/* Link the PWA manifest file. */}
         <link rel="manifest" href="/manifest.json" />
+        
+        {/* Bootstrap the service worker. */}
+        <script dangerouslySetInnerHTML={{ __html: sw }} />
 
         {/*
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.
@@ -28,3 +31,15 @@ export default function Root({ children }: PropsWithChildren) {
     </html>
   );
 }
+
+const sw = `
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(error => {
+            console.error('Service Worker registration failed:', error);
+        });
+    });
+}
+`;

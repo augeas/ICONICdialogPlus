@@ -43,7 +43,7 @@ jobs:
           label: low
           message: ${{ steps.low_vulns.outputs.low }}
           color: green
-      - run: echo ::set-output name=moderate ::$(node -e "const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.moderate)")
+      - run: echo ::set-output name=moderate ::$(node -e "const audit={{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.moderate)")
         id: moderate_vulns
       - name: Moderate Badge
         uses: schneegans/dynamic-badges-action@v1.7.0

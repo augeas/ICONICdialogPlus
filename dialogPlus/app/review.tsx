@@ -33,6 +33,26 @@ function DateScore({domain, session, ts, label}) {
   );
 }
 
+function PrevSessSelector({prev, ts, onClick}) {
+  return (prev.length ? 
+    <View>
+      <Text style={reviewStyles.scoreText}>Choose a previous session to compare:</Text>
+        <FlatList
+          data={prev}
+          horizontal={true}
+          renderItem={
+            ({item}) => <View
+              style={item === ts ? reviewStyles.selectedDateContainer : reviewStyles.dateContainer}
+            >
+              <SessionDate timeStamp={item} onPress={()=>{onClick(item)}}/>
+            </View>
+          }
+         />
+    </View>
+   :  <View><Text style={reviewStyles.scoreText}>(No previous sessions to compare.)</Text></View>
+  );
+}
+
 const Review = () => {
   const [domain, setDomain] = useState(Domains.Mental);
   const [reviewTs, setReviewTs] = useState('');
@@ -84,26 +104,9 @@ const Review = () => {
             
             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: 10}}>
 
-       {previousAssessments.length ?
-         <View>
-         <Text style={reviewStyles.scoreText}>Choose a previous session to compare:</Text>
-         <FlatList
-            data={previousAssessments}
-            horizontal={true}
-            renderItem={
-              ({item}) => <View
-                style={item === reviewTs ? reviewStyles.selectedDateContainer : reviewStyles.dateContainer}
-              >
-                <SessionDate timeStamp={item} onPress={()=>setReviewTs(item)}/>
-              </View>
-            }
-         >
-         </FlatList>
-         </View>
-        : <Text style={reviewStyles.scoreText}>(No previous sessions to compare.)</Text>
-       } 
-      
-           <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
+         <PrevSessSelector prev={previousAssessments} ts={reviewTs} onClick={(item)=>setReviewTs(item)} />
+ 
+          <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
       
           <View style={{flex: 1, alignItems: 'stretch'}}>
             <DateScore domain={domain} session={lastAssessment} ts={lastAssessment ? lastAssessment.timeStamp : null} label={'Just Now'}></DateScore>
@@ -115,6 +118,14 @@ const Review = () => {
           </View>
 
         </View></Tab>
+        
+         <Tab label={'action items'}>
+            <View>
+              <PrevSessSelector prev={previousAssessments} ts={reviewTs} onClick={(item)=>setReviewTs(item)} />
+            </View>
+         </Tab>
+        
+        
         
         <Tab label={'more about this'}>
             <SessionPrompt domain={domain}/>

@@ -32,7 +32,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           issue_labels: vulnerability,test
           dedupe_issues: true
-      - run: echo ::set-output name=low ::$(node -e "const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.low)")
+      - run: echo ::set-output name=low ::$(node -e 'const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.low)')
         id: low_vulns
       - name: Low Badge
         uses: schneegans/dynamic-badges-action@v1.7.0
@@ -43,7 +43,7 @@ jobs:
           label: low
           message: ${{ steps.low_vulns.outputs.low }}
           color: green
-      - run: echo ::set-output name=moderate ::$(node -e "const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.moderate)")
+      - run: echo ::set-output name=moderate ::$(node -e 'const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.moderate)')
         id: moderate_vulns
       - name: Moderate Badge
         uses: schneegans/dynamic-badges-action@v1.7.0
@@ -65,7 +65,7 @@ jobs:
           label: high
           message: ${{ steps.high_vulns.outputs.high }}
           color: orange
-      - run: echo ::set-output name=critical ::$(node -e "const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.critical)")
+      - run: echo ::set-output name=critical ::$(node -e 'const audit=${{ steps.audit.outputs.npm_audit }}; console.log(audit.metadata.vulnerabilities.critical)')
         id: critical_vulns
       - name: Critical Badge
         uses: schneegans/dynamic-badges-action@v1.7.0

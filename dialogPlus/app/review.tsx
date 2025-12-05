@@ -6,6 +6,7 @@ import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Assessment, Domains, DomainTitles, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
 import SessionDate from '../components/SessionDate';
+import ActionItemsList from  '../components/ActionItems';
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import SessionPrompt from '../components/SessionPrompt'
@@ -31,6 +32,16 @@ function DateScore({domain, session, ts, label}) {
     </View>
     : <View></View>) : <View></View>
   );
+}
+
+function DateItems({assessment, domain}) {
+  return (
+    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', padding: 10}}>
+      <SessionDate timeStamp={assessment.timeStamp}/>
+      <ActionItemsList assessment={assessment} domain={domain} />
+    </View>
+  );
+  
 }
 
 function PrevSessSelector({prev, ts, onClick}) {
@@ -120,12 +131,17 @@ const Review = () => {
         </View></Tab>
         
          <Tab label={'action items'}>
-            <View>
+            <View  style={{flex: 2, flexDirection: 'column', alignItems: 'center', padding: 10}}>
               <PrevSessSelector prev={previousAssessments} ts={reviewTs} onClick={(item)=>setReviewTs(item)} />
+              <Text style={reviewStyles.DomainTitle}>{DomainTitles[domain]}</Text>
+              
+              <View style={{flex: 1, flexDirection: 'row', alignItems: 'flex-start', padding: 10}}>
+                <DateItems assessment={lastAssessment} domain={domain} />              
+                { compareSession ? <DateItems assessment={compareSession} domain={domain} /> : <View></View>}
+              </View>
+              
             </View>
          </Tab>
-        
-        
         
         <Tab label={'more about this'}>
             <SessionPrompt domain={domain}/>

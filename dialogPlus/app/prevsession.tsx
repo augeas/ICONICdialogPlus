@@ -9,6 +9,7 @@ import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import SessionDate from '../components/SessionDate';
 import SessionPrompt from '../components/SessionPrompt'
+import ActionItemsList from  '../components/ActionItems';
 import styles from '../components/Styles';
 import Smiley from '../components/Smiley';
 
@@ -61,17 +62,8 @@ const PrevSession = () => {
                 </View>
                 
                 <Text style={{fontSize: 30}}>I {getHelpValue(domain) ? "need" : "don't need"} more help.</Text>
-                <Text style={{fontSize: 30}}>{pluralItems(thisAssessment.questions[domain], domain)}</Text>
-                
-                <FlatList
-                    data={thisAssessment.questions[domain].actionItems}
-                    renderItem={
-                      (item) => {return (
-                        <Text style={{fontSize: 30}}>{item.item}</Text>
-                      )}
-                  }
-                />     
-                
+                <ActionItemsList assessment={thisAssessment} domain={domain} />
+
                 </View>
               </View>
             </View>

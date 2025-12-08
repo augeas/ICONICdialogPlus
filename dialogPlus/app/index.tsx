@@ -1,6 +1,7 @@
 import React, {  useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, Pressable, View} from 'react-native';
 import { Link } from 'expo-router';
+import { useFonts } from 'expo-font';
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
@@ -14,6 +15,7 @@ const flattenURIRecords = (records) => Object.values(records).reduce((acc, curr)
 
 const App = () => {
   const [imgsPreloaded, setImgsPreloaded] = useState(false);
+  const [fontsLoaded] = useFonts(MaterialCommunityIcons.font);
   const [newClientModalVisible, setClientModalVisible] = useState(false);
   const [deletingClientID, setDeletingClientID] = useState(null);
   const clients = useClientStore((state) => state.clients);
@@ -62,8 +64,10 @@ const App = () => {
     </View>
   );   
  } 
-        
-  return (
+ 
+  if (!fontsLoaded) return (null);
+ 
+  return  (
     <View style={styles.centeredView}>
       <View>
         <Text style={styles.heading}>

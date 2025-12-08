@@ -9,6 +9,7 @@ import { Steps, StepNames } from '../data/discuss';
 import StepImages  from '../components/DiscussStepImage';
 import { Assessment, DomainKey, DomainTitles, questionItemCount, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
+import Orientated from '../components/Orientated';
 import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import ActionItemModal, {DeleteItemModal} from '../components/ActionItemModal';
 import DomainImage from '../components/DomainImage'
@@ -99,7 +100,7 @@ function Discuss() {
               index={itemIndex}
             /> 
     
-    <View style={{flex: 1}}>
+    <Orientated hStyle={{flex: 1}}  vStyle={{flex: 2}}>
         <DomainButtons
           domain={domain}
           isChecked={(i: number) => {return (
@@ -108,7 +109,7 @@ function Discuss() {
           disabled={disabledDomains}
           onClick={setDomain}
         />
-      </View>
+      </Orientated>
       
       <View style={{flex: 3}}>
         <TabGroup>
@@ -128,9 +129,9 @@ function Discuss() {
                   </View>
               </View>
               <View style={{flex: 3,  flexDirection: 'row'}}>
-                <View style={{flex: 1}}>
+                <Orientated hStyle={{flex: 1}} vStyle={{'display': 'none'}}>
                   <DomainImage domain={domain}/>
-                </View>
+                </Orientated>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'stretch'}}>
                   <RadioGroup
                     data={stageButtons}

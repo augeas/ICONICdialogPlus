@@ -1,10 +1,11 @@
 
 import React, {useState, useEffect} from 'react';
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
 
 import { Assessment, Domains, DomainKey, DomainTitles, DomainPrompts, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
+import Orientated from '../components/Orientated';
 import { RadioItem, RadioGroup } from '../components/RadioButtons';
 import { FadingButton} from '../components/Fading';
 import DomainButtons from '../components/DomainButtons';
@@ -119,19 +120,19 @@ const NewSession = () => {
       </DialogModal>   
     
       <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-        <View style={{flex: 2}}>
+        <Orientated  hStyle={{flex: 2}} vStyle={{flex: 3}}>
           <DomainButtons
             domain={domain}
             isChecked={isChecked}
             disabled={(i: number)=>cantMove}
             onClick={setDomain}
           />
-        </View>
+        </Orientated>
             
         <View style={{flex: 6}}>
         
         <TabGroup>
-          <Tab label={'Question'}><View style={{flex: 4, flexDirection: 'row', alignItems: 'flexStart'}}>
+          <Tab label={'Question'}><Orientated hStyle={newSessionStyles.horizTab}  vStyle={newSessionStyles.vertTab} >
         
          <View style={{distributeConent: 'center'}}><DomainImage domain={domain}/></View>
         
@@ -150,7 +151,7 @@ const NewSession = () => {
           
            </View>          
           
-          </View></Tab>
+          </Orientated></Tab>
                     
           <Tab label={'More Information'}>
                 <View style={{flex: 2}}>
@@ -193,5 +194,18 @@ const NewSession = () => {
     </ScrollView></View>
   ) 
 }
+
+const newSessionStyles = StyleSheet.create({
+  horizTab:{
+    flex: 4,
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  vertTab:{
+    flex: 1,
+    flexDirection: 'column-reverse',
+    justifyContent: 'space-around'
+  }
+});
 
 export default NewSession;

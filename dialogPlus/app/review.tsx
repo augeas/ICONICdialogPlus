@@ -4,6 +4,7 @@ import { Link, useLocalSearchParams  } from "expo-router";
 import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import { Assessment, Domains, DomainTitles, Question, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
+import Orientated from '../components/Orientated';
 import { Tab, TabGroup } from '../components/Tabs';
 import SessionDate from '../components/SessionDate';
 import ActionItemsList from  '../components/ActionItems';
@@ -93,21 +94,21 @@ const Review = () => {
     <View style={{flex: 1}}><ScrollView>
      
       <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 1}}>
+        <Orientated hStyle={{flex: 1}} vStyle={{flex: 2}}>
           <DomainButtons
               domain={domain}
               isChecked={isChecked}
               disabled={gotResponse}
               onClick={setDomain}
           />
-        </View>
+        </Orientated>
                 
         <View style={{flexDirection: 'column', flex: 3, justifyContent: 'space-between'}}>
         <TabGroup>
         
         <Tab label={'how you answered'}><View>
         
-              <View style={{flex: 2, flexDirection: 'row', justifyContent: 'flex-start', padding: 10}}>
+              <Orientated hStyle={reviewStyles.horizTab} vStyle={reviewStyles.vertTab}>
               
                 <View style={{flex: 1, justifyContent: 'center'}}>
                   <DomainImage domain={domain}/>
@@ -126,7 +127,7 @@ const Review = () => {
           
           </View> 
           
-          </View>
+          </Orientated>
 
         </View></Tab>
         
@@ -190,6 +191,18 @@ const reviewStyles = StyleSheet.create({
     fontSize: 20,
     padding: 10
   },
+  horizTab: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: 10
+  },
+  vertTab: {
+    flex: 1,
+    flexDirection: 'column-reverse',
+    justifyContent: 'space-aroun',
+    padding: 10
+  }  
 });
 
 export default Review;

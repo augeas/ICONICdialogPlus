@@ -136,7 +136,7 @@ const NewSession = () => {
         
          <View style={{distributeConent: 'center'}}><DomainImage domain={domain}/></View>
         
-          <View >
+          <View>
             
             <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
      

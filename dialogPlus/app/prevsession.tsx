@@ -1,11 +1,11 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
-import * as ScreenOrientation from "expo-screen-orientation";
 
 import { Assessment, Domains, DomainKey, DomainPrompts, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
+import Orientated from '../components/Orientated';
 import DomainButtons from '../components/DomainButtons';
 import DomainImage from '../components/DomainImage'
 import SessionDate from '../components/SessionDate';
@@ -27,35 +27,12 @@ const PrevSession = () => {
   
   const [domain, setDomain] = useState(Object.values(Domains).find(getScaleValue));
   
-  const [orientation, setOrientation] = useState(null);
-
-  const checkOrientation = async () => {
-    const orientation = await ScreenOrientation.getOrientationAsync();
-    setOrientation(orientation);
-  };
-  const handleOrientationChange = (o) => {
-    setOrientation(o.orientationInfo.orientation);
-  };
-  
-  useEffect(() => {
-    checkOrientation();
-      const subscription = ScreenOrientation.addOrientationChangeListener(
-        handleOrientationChange
-      );
-      return () => {
-        ScreenOrientation.removeOrientationChangeListeners(subscription);
-      };
-    }, []);
-
-  const portrait = orientation == 1 | orientation == 2 ;
-  
   const score = getScaleValue(domain);
   
   const getHelpValue = (i: DomainKey) => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].moreHelp : null);
   };
-  
-  
+    
   return (
     <View style={{flex: 1}}><ScrollView>
 
@@ -69,15 +46,15 @@ const PrevSession = () => {
           />
         </View>
       
-      <View style={{flex: portrait ? 2 : 3}}>
+      <Orientated hStyle={{flex: 3}} vStyle={{flex: 2}}>
       <TabGroup>
         <Tab label={'how you answered'}>
         
-            <View style={portrait ? sessionStyles.vertTab : sessionStyles.horizTab}>
+            <Orientated hStyle={sessionStyles.horizTab} vStyle={sessionStyles.vertTab} >
               <View style={{flex: 1}}>
                 <DomainImage domain={domain}/>
               </View>
-            < View style={{flex: portrait ? 1 : 2}}>
+            <Orientated hStyle={{flex: 2}} vStyle={{flex: 1}}  >
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
                 
@@ -91,8 +68,8 @@ const PrevSession = () => {
                 <ActionItemsList assessment={thisAssessment} domain={domain} />
 
                 </View>
-              </View>
-            </View>
+              </Orientated>
+            </Orientated>
             
           </Tab>
           <Tab label={'more about this'}>
@@ -100,7 +77,7 @@ const PrevSession = () => {
 
           </Tab>
         </TabGroup>
-        </View>
+        </Orientated>
         
       </View>        
         

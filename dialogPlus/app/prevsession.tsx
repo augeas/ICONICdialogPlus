@@ -1,7 +1,8 @@
 
-import React, {useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet, Text, View, ScrollView } from 'react-native';
+import * as ScreenOrientation from "expo-screen-orientation";
 
 import { Assessment, Domains, DomainKey, DomainPrompts, pluralItems, Responses, SmileyScaleIcon, SmileyScaleColour, useAssesmentsStore } from "../data/assessment";
 import { Tab, TabGroup } from '../components/Tabs';
@@ -24,16 +25,41 @@ const PrevSession = () => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].score : null);
   };  
   
-  const [domain, setDomain] = useState(Object.values(Domains).find(getScaleValue));  
+  const [domain, setDomain] = useState(Object.values(Domains).find(getScaleValue));
+  
+  const [orientation, setOrientation] = useState(null);
+
+  const checkOrientation = async () => {
+    const orientation = await ScreenOrientation.getOrientationAsync();
+    setOrientation(orientation);
+  };
+  const handleOrientationChange = (o) => {
+    setOrientation(o.orientationInfo.orientation);
+  };
+  
+  useEffect(() => {
+    checkOrientation();
+      const subscription = ScreenOrientation.addOrientationChangeListener(
+        handleOrientationChange
+      );
+      return () => {
+        ScreenOrientation.removeOrientationChangeListeners(subscription);
+      };
+    }, []);
+
+  const portrait = orientation == 1 | orientation == 2 ;
+  
   const score = getScaleValue(domain);
   
   const getHelpValue = (i: DomainKey) => {
     return (thisAssessment.questions[i] ? thisAssessment.questions[i].moreHelp : null);
   };
+  
+  
   return (
     <View style={{flex: 1}}><ScrollView>
 
-      <View style={{flex: 5, flexDirection: 'row', justifyContent: 'flex-start'}}>
+      <View style={{flex: 5, flexDirection: 'row'}}>
         <View style={{flex: 1}}>
           <DomainButtons
             domain={domain}
@@ -43,15 +69,15 @@ const PrevSession = () => {
           />
         </View>
       
-      <View style={{flex: 3}}>
+      <View style={{flex: portrait ? 2 : 3}}>
       <TabGroup>
         <Tab label={'how you answered'}>
         
-            <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <View style={portrait ? sessionStyles.vertTab : sessionStyles.horizTab}>
               <View style={{flex: 1}}>
                 <DomainImage domain={domain}/>
               </View>
-            < View style={{flex: 2}}>
+            < View style={{flex: portrait ? 1 : 2}}>
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
                 
@@ -93,7 +119,15 @@ const sessionStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     columnGap: 20
-  },  
+  },
+  horizTab:{
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  vertTab:{
+    flexDirection: 'column-reverse',
+    justifyContent: 'space-around'
+  }
 });
 
 export default PrevSession;

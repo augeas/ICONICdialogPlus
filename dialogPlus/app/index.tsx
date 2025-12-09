@@ -65,8 +65,6 @@ const App = () => {
   );   
  } 
  
-  if (!fontsLoaded) return (null);
- 
   return  (
     <View style={styles.centeredView}>
       <View>
@@ -108,6 +106,7 @@ const App = () => {
         </View>
         <View>
           { ! imgsPreloaded && <Text>(preloading images...)</Text> }
+          { ! fontsLoaded && <Text>(preloading fonts...)</Text> }
         </View>
       </View>
           

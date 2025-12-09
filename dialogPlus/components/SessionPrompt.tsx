@@ -9,7 +9,7 @@ export default function SessionPrompt({domain}) {
     <View  style={{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly'}}>
       <View style={promptStyles.promptItem}>
         <Image source={QuestionImageURI[domain]}/>
-        <View>
+        <View style={{flex: 1, flexWrap: "wrap"}}>
           <FlatList
             data={QuestionPrompts[domain]}
             renderItem={

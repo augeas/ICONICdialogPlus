@@ -100,7 +100,7 @@ function Discuss() {
               index={itemIndex}
             /> 
     
-    <Orientated hStyle={{flex: 1}}  vStyle={{flex: 2}}>
+    <Orientated hStyle={{flex: 1}}  vStyle={{flex: 3}}>
         <DomainButtons
           domain={domain}
           isChecked={(i: number) => {return (
@@ -111,7 +111,7 @@ function Discuss() {
         />
       </Orientated>
       
-      <View style={{flex: 3}}>
+      <View style={{flex: 5}}>
         <TabGroup>
           <Tab label={'Discuss'}>
             <View style={{flex: 3,  flexDirection: 'column'}}>

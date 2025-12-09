@@ -36,7 +36,7 @@ const PrevSession = () => {
   return (
     <View style={{flex: 1}}><ScrollView>
 
-      <View style={{flex: 5, flexDirection: 'row'}}>
+      <View style={{flex: 6, flexDirection: 'row'}}>
         <View style={{flex: 1}}>
           <DomainButtons
             domain={domain}

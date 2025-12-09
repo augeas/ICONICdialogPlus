@@ -136,9 +136,10 @@ const NewSession = () => {
         
          <View style={{distributeConent: 'center'}}><DomainImage domain={domain}/></View>
         
-          <View>
-            
-            <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
+          <View style={{flexShrink: 1}}>
+
+                <Text style={styles.heading}>{'How happy are you '+DomainPrompts[domain]+'?'}</Text>
+
      
             <View style={{flex: 1}}>
             <RadioGroup

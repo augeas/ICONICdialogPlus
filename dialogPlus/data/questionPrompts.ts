@@ -48,7 +48,7 @@ export const QuestionPrompts: Record<DomainKey, string[]> = {
   ],
   [Domains.Support]: [
     'This question is asking about the help that you are given from support workers, paid carers, and family carers.'
-    +' \nSupport might help you with:',
+    +'  Support might help you with:',
     'Money', 'Where you live', 'Hobbies and Interests', 'Taking medication', 'Meeting other people',
     'Getting around your area'
   ],
@@ -118,8 +118,8 @@ export const QuestionIncludes: Record<DomainKey, string[]> = {
     'Whether you have any technology that you need.'
   ],
   [Domains.Medication]: [
-    'If you know:\nWhich medications you are taking.\nWhen to take your medication.'
-    +'How much medication you are taking.\nWhat your medication is for.',
+    'If you know: Which medications you are taking. When to take your medication.'
+    +'How much medication you are taking. What your medication is for.',
     'How easily you can get your medication, for example from the chemist.',
     'If you have been given enough easy-read informaton about your medication.',
     'How your medication makes you feel and if you have any reactions.',

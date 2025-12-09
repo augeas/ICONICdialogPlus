@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   heading: {
+    flexShrink: 1,
     fontSize: 28,
     fontWeight: 'bold',
   },

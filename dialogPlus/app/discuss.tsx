@@ -100,7 +100,7 @@ function Discuss() {
               index={itemIndex}
             /> 
     
-    <Orientated hStyle={{flex: 1}}  vStyle={{flex: 3}}>
+    <Orientated hStyle={{flex: 2}}  vStyle={{flex: 3}}>
         <DomainButtons
           domain={domain}
           isChecked={(i: number) => {return (

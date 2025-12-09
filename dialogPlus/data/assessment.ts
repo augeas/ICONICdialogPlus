@@ -55,10 +55,10 @@ export const DomainPrompts: Record<DomainKey, string> = {
   [Domains.Friends]: 'about your friendships',
   [Domains.Safety]: 'about how safe you feel',
   [Domains.Independence]: 'about your independence',
-  [Domains.Communication]: 'with the way you communicate\nwith other people',
+  [Domains.Communication]: 'with the way you communicate with other people',
   [Domains.Medication]: 'with your medication',
-  [Domains.Support]: 'with the support that you get\nfrom your carers',
-  [Domains.Meetings]: 'about your meetings with\nhealth professionals and social workers'
+  [Domains.Support]: 'with the support that you get from your carers',
+  [Domains.Meetings]: 'about your meetings with health professionals and social workers'
 };
 
 export const DomainImageURI: Record<DomainKey, Object> = {
